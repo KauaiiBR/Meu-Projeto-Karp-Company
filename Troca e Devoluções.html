@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trocas e Devoluções | KARPE</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #10B981;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --light-text: #6c757d;
+            --border: #e9ecef;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+        
+        /* HEADER CORRIGIDO */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+            backdrop-filter: blur(10px);
+            background: var(--secondary);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 1001;
+            flex-shrink: 0;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Menu Hamburger (Mobile First) */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .header__nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--secondary);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .header__nav.active {
+            right: 0;
+        }
+
+        .header__nav-list {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 30px;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .header__nav-item {
+            margin: 0;
+        }
+
+        .header__nav-link {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--primary);
+            padding: 10px 0;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .header__nav-link:hover {
+            color: var(--accent);
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__action {
+            font-size: 1.6rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .header__action:hover {
+            transform: scale(1.1);
+        }
+
+        .header__action a {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--primary);
+        }
+
+        .header__action-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary);
+            color: var(--secondary);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .fa-user-check {
+            color: #10B981 !important;
+        }
+
+        /* Conteúdo Principal */
+        .policy-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d3748 100%);
+            color: var(--secondary);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+            margin-top: -80px;
+        }
+        
+        .policy-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2310b981' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .policy-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 50px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .info-card {
+            background: var(--light-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .info-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .step-description {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -23px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        .contact-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d3748 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .contact-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .contact-info {
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        
+        .btn-karpe {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .btn-karpe:hover {
+            background: #0da271;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-karpe i {
+            margin-right: 8px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h5 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .warning-box p {
+            color: #856404;
+            margin: 0;
+        }
+        
+        .table-custom {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .table-custom th {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+        }
+        
+        .table-custom td {
+            padding: 15px;
+            border-color: var(--border);
+            vertical-align: middle;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h5 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            margin-top: 50px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* RESPONSIVE STYLES - TABLET */
+        @media (min-width: 768px) {
+            .hamburger {
+                display: none;
+            }
+
+            .header__nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                display: flex;
+            }
+
+            .header__nav-list {
+                flex-direction: row;
+                gap: 25px;
+            }
+
+            .header__nav-link {
+                font-size: 1.3rem;
+                padding: 0;
+            }
+
+            .header__actions {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .policy-content {
+                padding: 30px;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: var(--accent);
+        }
+
+        /* User Dropdown Menu */
+        .user-dropdown {
+            position: relative;
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: white;
+            border: 1px solid var(--gray-2);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 10000;
+            min-width: 200px;
+            font-family: inherit;
+        }
+
+        .user-dropdown-menu div:first-child {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .user-dropdown-menu div:nth-child(2) {
+            margin-bottom: 15px;
+            color: var(--gray-5);
+            font-size: 0.9rem;
+        }
+
+        .user-dropdown-menu hr {
+            margin: 10px 0;
+            border: none;
+            border-top: 1px solid var(--gray-2);
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER CORRIGIDO -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <a href="index.html" class="header__logo">KARPE</a>
+                
+                <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="nav" aria-label="Navegação principal">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="Novidades.html" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Roupas.html" class="header__nav-link">Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="SkinCare.html" class="header__nav-link">Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <!-- Ícone de Login/Cadastro -->
+                    <div class="header__action user-dropdown">
+                        <a href="LoginUsuariosKARP.html" aria-label="Login" id="loginIcon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Ícone do Carrinho -->
+                    <div class="header__action">
+                        <a href="carrinho.html" aria-label="Carrinho de compras">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
+                            </svg>
+                            <span class="header__action-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="policy-hero">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title animate__animated animate__fadeInUp">Trocas e Devoluções</h1>
+                    <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+                        Sua satisfação é nossa prioridade. Conheça nossa política completa de trocas e devoluções.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policy Content -->
+    <section class="container">
+        <div class="policy-content animate__animated animate__fadeInUp">
+            <!-- Introdução -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="section-title">Política de Trocas e Devoluções</h2>
+                    <p class="lead">
+                        Na KARPE, nos esforçamos para oferecer produtos de alta qualidade e garantir sua total satisfação. 
+                        Caso precise trocar ou devolver algum produto, estamos aqui para ajudar.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Informações Rápidas -->
+            <div class="row mb-5">
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <h4><i class="fas fa-clock me-2"></i>Prazo</h4>
+                        <p>30 dias corridos a partir da data de recebimento do produto</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <h4><i class="fas fa-sync-alt me-2"></i>Condições</h4>
+                        <p>Produto deve estar em perfeito estado com etiqueta original</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <h4><i class="fas fa-shipping-fast me-2"></i>Frete</h4>
+                        <p>Custo do frete de devolução por conta do cliente</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processo de Troca -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="section-title">Como Solicitar uma Troca</h3>
+                    
+                    <div class="row">
+                        <div class="col-lg-4 mb-4">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <h5 class="step-title">Entre em Contato</h5>
+                                <p class="step-description">
+                                    Envie um e-mail para <strong>trocas@karpe.com</strong> com seu número do pedido e motivo da troca dentro do prazo de 30 dias.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <h5 class="step-title">Envie o Produto</h5>
+                                <p class="step-description">
+                                    Após aprovação, envie o produto para nosso centro de distribuição. Use a embalagem original e inclua a nota fiscal.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <h5 class="step-title">Receba sua Troca</h5>
+                                <p class="step-description">
+                                    Após análise, enviaremos seu novo produto. O prazo de entrega é de até 10 dias úteis após a aprovação.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Condições para Troca -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="section-title">Condições para Troca</h3>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>Situação</th>
+                                    <th>Condições</th>
+                                    <th>Prazo</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Arrependimento</td>
+                                    <td>Produto intacto com etiqueta</td>
+                                    <td>30 dias</td>
+                                    <td><span class="status-badge status-approved">Aceito</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Defeito de Fabricação</td>
+                                    <td>Problema constatado na entrega</td>
+                                    <td>90 dias</td>
+                                    <td><span class="status-badge status-approved">Aceito</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Produto Errado</td>
+                                    <td>Item diferente do pedido</td>
+                                    <td>7 dias</td>
+                                    <td><span class="status-badge status-approved">Aceito</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Produto Usado</td>
+                                    <td>Sem etiqueta ou com sinais de uso</td>
+                                    <td>-</td>
+                                    <td><span class="status-badge status-rejected">Recusado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Devolução e Reembolso -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="section-title">Devolução e Reembolso</h3>
+                    
+                    <div class="warning-box">
+                        <h5><i class="fas fa-exclamation-triangle me-2"></i>Importante</h5>
+                        <p>
+                            O reembolso será processado na mesma forma de pagamento utilizada na compra. 
+                            Para cartão de crédito, a liberação ocorre de acordo com a administradora do cartão.
+                        </p>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">1-2 dias úteis</div>
+                            <h5>Recebimento do Produto</h5>
+                            <p>Após recebermos o produto em nosso centro de distribuição.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">3-5 dias úteis</div>
+                            <h5>Análise e Aprovação</h5>
+                            <p>Verificamos as condições do produto e a documentação.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">5-10 dias úteis</div>
+                            <h5>Processamento do Reembolso</h5>
+                            <p>Realizamos o estorno do valor pago.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">1-2 faturas</div>
+                            <h5>Crédito na Fatura</h5>
+                            <p>Para pagamentos com cartão de crédito.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="section-title">Perguntas Frequentes</h3>
+                    
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Posso trocar um produto em qualquer loja física?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Atualmente, as trocas são realizadas apenas pelo nosso canal online. 
+                                    Você pode solicitar a troca através do e-mail <strong>trocas@karpe.com</strong>.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    E se o produto veio com defeito?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Em caso de defeito de fabricação, entre em contato em até 90 dias. 
+                                    Cobriremos o custo do frete de devolução e enviaremos um produto novo.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Como faço para devolver um presente?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Para produtos recebidos como presente, você receberá um vale-compras no valor do produto. 
+                                    Entre em contato com nosso SAC informando o número do pedido.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    E se eu recebi o produto errado?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Entre em contato em até 7 dias após o recebimento. 
+                                    Iremos buscar o produto em sua casa e enviar o correto sem custo adicional.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contato -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="contact-box">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 class="contact-title">Precisa de Ajuda?</h4>
+                        <p class="contact-info">
+                            Nossa equipe está pronta para te ajudar com qualquer dúvida sobre trocas e devoluções.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <p><i class="fas fa-envelope me-2"></i>trocas@karpe.com</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <p><i class="fas fa-phone me-2"></i>(11) 4004-1824</p>
+                            </div>
+                        </div>
+                        <a href="mailto:trocas@karpe.com" class="btn btn-karpe">
+                            <i class="fas fa-paper-plane"></i> Entrar em Contato
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-logo">KARPE</div>
+                    <p>Moda com atitude. Design com propósito.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Loja</h5>
+                        <ul>
+                            <li><a href="Novidades.html">Novidades</a></li>
+                            <li><a href="Roupas.html">Roupas</a></li>
+                            <li><a href="Calçados.html">Calçados</a></li>
+                            <li><a href="SkinCare.html">Skincare</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Informações</h5>
+                        <ul>
+                            <li><a href="KARPE.html">Sobre nós</a></li>
+                            <li><a href="#">Trocas e devoluções</a></li>
+                            <li><a href="#">Entregas</a></li>
+                            <li><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Contato</h5>
+                        <ul>
+                            <li><a href="mailto:karpe.companyy@gmail.com">karpe.companyy@gmail.com</a></li>
+                            <li><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                            <li><a href="#">Pirapora-MG</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 KARPE. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="backend/Back-end arquivos/TrocaDvevoluçao.js" defer></script>
+</body>
+</html>

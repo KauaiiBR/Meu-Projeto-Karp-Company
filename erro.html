@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro no Pagamento - KARPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE STYLES */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --error-red: #EF4444;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+            backdrop-filter: blur(10px);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 1001;
+            flex-shrink: 0;
+        }
+
+        /* Menu Hamburger (Mobile First) */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--black);
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .header__nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: var(--white);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .header__nav.active {
+            right: 0;
+        }
+
+        .header__nav-list {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .header__nav-item {
+            margin: 0;
+        }
+
+        .header__nav-link {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            text-decoration: none;
+            color: var(--black);
+            padding: 10px 0;
+            display: block;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__action {
+            font-size: 1.6rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .header__action:hover {
+            transform: scale(1.1);
+        }
+
+        .header__action a {
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--black);
+        }
+
+        .header__action-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--black);
+            color: var(--white);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .fa-user-check {
+            color: #10B981 !important;
+        }
+
+        /* HERO ERRO */
+        .hero-erro {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+            background-color: var(--gray-1);
+            padding: 30px 0;
+        }
+
+        .hero-erro__content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-erro__title {
+            font-size: 3.2rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* CONTEÚDO DO ERRO */
+        .erro-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+
+        .erro-message {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .erro-icon {
+            font-size: 6rem;
+            color: var(--error-red);
+            margin-bottom: 25px;
+        }
+
+        .erro-message h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .erro-message p {
+            font-size: 1.6rem;
+            color: var(--gray-5);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .erro-details {
+            background-color: var(--gray-1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .erro-details h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--black);
+        }
+
+        .erro-details p {
+            font-size: 1.4rem;
+            margin-bottom: 0;
+        }
+
+        .erro-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: 1px solid var(--black);
+            background-color: var(--black);
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        .btn--secondary {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        .btn--secondary:hover {
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 50px 0 30px;
+            background-color: var(--black);
+            color: var(--white);
+            margin-top: auto;
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer__col {
+            text-align: center;
+        }
+
+        .footer__title {
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .footer__links {
+            list-style: none;
+        }
+
+        .footer__link {
+            margin-bottom: 10px;
+        }
+
+        .footer__link a {
+            font-size: 1.3rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__link a:active {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-6);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .footer__copyright {
+            font-size: 1.1rem;
+            color: var(--gray-4);
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer__social-link {
+            font-size: 1.6rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+            padding: 5px;
+        }
+
+        .footer__social-link:active {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE STYLES - TABLET */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .header {
+                padding: 20px 0;
+            }
+
+            .header__logo {
+                font-size: 2.2rem;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .header__nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                display: flex;
+            }
+
+            .header__nav-list {
+                flex-direction: row;
+                gap: 25px;
+            }
+
+            .header__nav-link {
+                font-size: 1.3rem;
+                padding: 0;
+            }
+
+            .header__actions {
+                gap: 20px;
+            }
+
+            .hero-erro {
+                min-height: 30vh;
+                margin-top: 80px;
+            }
+
+            .hero-erro__title {
+                font-size: 4.8rem;
+            }
+
+            .erro-message {
+                padding: 60px;
+            }
+
+            .erro-actions {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .btn {
+                width: auto;
+                min-width: 200px;
+            }
+
+            .footer__top {
+                grid-template-columns: repeat(2, 1fr);
+                text-align: left;
+            }
+
+            .footer__col {
+                text-align: left;
+            }
+        }
+
+        /* RESPONSIVE STYLES - DESKTOP */
+        @media (min-width: 992px) {
+            .footer__top {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .footer__bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        /* RESPONSIVE STYLES - LARGE DESKTOP */
+        @media (min-width: 1200px) {
+            .hero-erro__title {
+                font-size: 6.4rem;
+            }
+        }
+
+        /* Touch improvements */
+        @media (hover: hover) {
+            .footer__link a:hover,
+            .footer__social-link:hover {
+                color: var(--white);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">KARPE</div>
+                
+                <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="nav" aria-label="Navegação principal">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="Novidades.html" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Roupas.html" class="header__nav-link">Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="SkinCare.html" class="header__nav-link">Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <!-- Ícone de Login/Cadastro -->
+                    <div class="header__action user-dropdown">
+                        <a href="LoginUsuariosKARP.html" aria-label="Login" id="loginIcon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Ícone do Carrinho -->
+                    <div class="header__action">
+                        <a href="carrinho.html" aria-label="Carrinho de compras">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
+                            </svg>
+                            <span class="header__action-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO ERRO -->
+    <section class="hero-erro">
+        <div class="container">
+            <div class="hero-erro__content">
+                <h1 class="hero-erro__title">ERRO NO PAGAMENTO</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO DO ERRO -->
+    <section class="erro-content">
+        <div class="container">
+            <div class="erro-message">
+                <div class="erro-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h1>Ocorreu um erro no processamento do seu pagamento</h1>
+                <p>Infelizmente, não foi possível concluir sua compra. Isso pode ter acontecido por vários motivos, como problemas temporários com o sistema de pagamento, dados incorretos ou limite insuficiente.</p>
+                
+                <div class="erro-details">
+                    <h3>O que você pode fazer:</h3>
+                    <p>• Verifique os dados do seu cartão ou conta</p>
+                    <p>• Confirme se há limite disponível</p>
+                    <p>• Tente novamente em alguns minutos</p>
+                    <p>• Entre em contato com seu banco se necessário</p>
+                </div>
+                
+                <div class="erro-actions">
+                    <a href="carrinho.html" class="btn">Tentar Novamente</a>
+                    <a href="index.html" class="btn btn--secondary">Voltar à Loja</a>
+                </div>
+                
+                <p style="margin-top: 20px; font-size: 1.3rem; color: var(--gray-4);">
+                    Se o problema persistir, entre em contato conosco: 
+                    <a href="mailto:karpe.companyy@gmail.com" style="color: var(--black); text-decoration: underline;">karpe.companyy@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__col">
+                    <h4 class="footer__title">KARPE</h4>
+                    <p style="color: var(--gray-4); font-size: 1.3rem; line-height: 1.5;">Moda com atitude. Design com propósito.</p>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Loja</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="Novidades.html">Novidades</a></li>
+                        <li class="footer__link"><a href="Roupas.html">Roupas</a></li>
+                        <li class="footer__link"><a href="Calçados.html">Calçados</a></li>
+                        <li class="footer__link"><a href="SkinCare.html">Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Informações</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="index.html">Sobre nós</a></li>
+                        <li class="footer__link"><a href="#">Trocas e devoluções</a></li>
+                        <li class="footer__link"><a href="#">Entregas</a></li>
+                        <li class="footer__link"><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Contato</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="mailto:karpe.companyy@gmail.com">karpe.companyy@gmail.com</a></li>
+                        <li class="footer__link"><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                        <li class="footer__link"><a href="#">Pirapora-MG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+   <script src="backend/Back-end arquivos/erro.js" defer></script>
+</body>
+</html>

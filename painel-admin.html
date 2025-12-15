@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin | KARPE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .content {
+            transition: all 0.3s ease;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .stat-card.orders {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .stat-card.users {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .stat-card.revenue {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Sidebar -->
+    <div class="sidebar fixed inset-y-0 left-0 z-50 w-64 bg-black text-white transform -translate-x-full md:translate-x-0 transition duration-300">
+        <div class="p-6">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                    <i class="fas fa-crown text-black text-lg"></i>
+                </div>
+                <span class="text-xl font-black">KARPE ADMIN</span>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="#dashboard" class="nav-item flex items-center space-x-3 p-3 rounded-lg bg-gray-800">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#usuarios" class="nav-item flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800">
+                    <i class="fas fa-users"></i>
+                    <span>Usuários</span>
+                </a>
+                <a href="#pedidos" class="nav-item flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Pedidos</span>
+                </a>
+                <a href="#produtos" class="nav-item flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Produtos</span>
+                </a>
+                <a href="#relatorios" class="nav-item flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Relatórios</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content md:ml-64">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b">
+            <div class="flex items-center justify-between p-4">
+                <div class="flex items-center space-x-4">
+                    <button id="menuToggle" class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h1 class="text-2xl font-bold text-gray-800">Painel Administrativo</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="adminName" class="text-gray-700">Administrador</span>
+                    <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Stat Cards -->
+                <div class="stat-card p-6 rounded-2xl shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-2xl font-bold" id="totalUsers">0</p>
+                            <p class="text-white/80">Total Usuários</p>
+                        </div>
+                        <i class="fas fa-users text-3xl text-white/80"></i>
+                    </div>
+                </div>
+                
+                <div class="stat-card orders p-6 rounded-2xl shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-2xl font-bold" id="totalOrders">0</p>
+                            <p class="text-white/80">Pedidos Hoje</p>
+                        </div>
+                        <i class="fas fa-shopping-bag text-3xl text-white/80"></i>
+                    </div>
+                </div>
+                
+                <div class="stat-card users p-6 rounded-2xl shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-2xl font-bold" id="pendingOrders">0</p>
+                            <p class="text-white/80">Pendentes</p>
+                        </div>
+                        <i class="fas fa-clock text-3xl text-white/80"></i>
+                    </div>
+                </div>
+                
+                <div class="stat-card revenue p-6 rounded-2xl shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-2xl font-bold" id="totalRevenue">R$ 0</p>
+                            <p class="text-white/80">Receita Total</p>
+                        </div>
+                        <i class="fas fa-dollar-sign text-3xl text-white/80"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-lg font-semibold mb-4">Vendas por Mês</h3>
+                    <canvas id="salesChart" height="250"></canvas>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-lg font-semibold mb-4">Status dos Pedidos</h3>
+                    <canvas id="ordersChart" height="250"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <h3 class="text-lg font-semibold mb-4">Atividade Recente</h3>
+                <div id="recentActivity" class="space-y-3">
+                    <!-- Atividade será carregada via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuários Section -->
+        <div id="usuarios" class="p-6 hidden">
+            <div class="bg-white rounded-2xl shadow-lg">
+                <div class="p-6 border-b">
+                    <h2 class="text-xl font-semibold">Gestão de Usuários</h2>
+                </div>
+                <div class="p-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="p-3 text-left">ID</th>
+                                    <th class="p-3 text-left">Nome</th>
+                                    <th class="p-3 text-left">Email</th>
+                                    <th class="p-3 text-left">Telefone</th>
+                                    <th class="p-3 text-left">Data Cadastro</th>
+                                    <th class="p-3 text-left">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <!-- Usuários serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pedidos Section -->
+        <div id="pedidos" class="p-6 hidden">
+            <div class="bg-white rounded-2xl shadow-lg">
+                <div class="p-6 border-b">
+                    <h2 class="text-xl font-semibold">Gestão de Pedidos</h2>
+                </div>
+                <div class="p-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="p-3 text-left">ID</th>
+                                    <th class="p-3 text-left">Cliente</th>
+                                    <th class="p-3 text-left">Total</th>
+                                    <th class="p-3 text-left">Status</th>
+                                    <th class="p-3 text-left">Data</th>
+                                    <th class="p-3 text-left">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable">
+                                <!-- Pedidos serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+        // Configuração
+        const API_BASE_URL = 'http://localhost:3001';
+        let adminToken = localStorage.getItem('karpe_admin_token');
+
+        // Elementos
+        const sections = {
+            dashboard: document.getElementById('dashboard'),
+            usuarios: document.getElementById('usuarios'),
+            pedidos: document.getElementById('pedidos')
+        };
+
+        // Verificar autenticação
+        if (!adminToken) {
+            const password = prompt('🔐 Acesso Restrito\nDigite a senha de administrador:');
+            if (password === 'admin123') {
+                adminToken = 'admin_access_' + Date.now();
+                localStorage.setItem('karpe_admin_token', adminToken);
+                document.getElementById('adminName').textContent = 'Admin KARPE';
+            } else {
+                alert('❌ Acesso negado!');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Navegação
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href').substring(1);
+                
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('bg-gray-800');
+                });
+                this.classList.add('bg-gray-800');
+                
+                Object.values(sections).forEach(section => {
+                    section.classList.add('hidden');
+                });
+                sections[target].classList.remove('hidden');
+            });
+        });
+
+        // Menu mobile
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('-translate-x-full');
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('karpe_admin_token');
+            window.location.href = 'index.html';
+        });
+
+        // Carregar dados do dashboard - CORRIGIDO
+        async function loadDashboard() {
+            try {
+                console.log('📊 Carregando dashboard...');
+                
+                // Carregar estatísticas
+                const statsResponse = await fetch(`${API_BASE_URL}/api/admin/stats`, {
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+                
+                if (statsResponse.ok) {
+                    const stats = await statsResponse.json();
+                    console.log('📈 Estatísticas:', stats);
+                    
+                    document.getElementById('totalUsers').textContent = stats.totalUsers || 0;
+                    document.getElementById('totalOrders').textContent = stats.todayOrders || 0;
+                    document.getElementById('pendingOrders').textContent = stats.pendingOrders || 0;
+                    document.getElementById('totalRevenue').textContent = `R$ ${stats.totalRevenue || '0.00'}`;
+
+                    // Inicializar gráficos com dados reais
+                    initializeCharts(stats.chartData);
+                } else {
+                    console.error('❌ Erro na resposta stats:', statsResponse.status);
+                }
+
+                // Carregar usuários
+                await loadUsers();
+                
+                // Carregar pedidos
+                await loadOrders();
+                
+            } catch (error) {
+                console.error('💥 Erro ao carregar dashboard:', error);
+            }
+        }
+
+        // Carregar usuários - CORRIGIDO
+        async function loadUsers() {
+            try {
+                console.log('👥 Carregando usuários...');
+                const response = await fetch(`${API_BASE_URL}/api/admin/users`, {
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+                
+                console.log('📨 Resposta usuários:', response.status);
+                
+                if (response.ok) {
+                    const users = await response.json();
+                    console.log('📊 Usuários carregados:', users);
+                    
+                    const tbody = document.getElementById('usersTable');
+                    if (users && users.length > 0) {
+                        tbody.innerHTML = users.map(user => `
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-3">${user.id}</td>
+                                <td class="p-3">${user.nome || 'N/A'}</td>
+                                <td class="p-3">${user.email || 'N/A'}</td>
+                                <td class="p-3">${user.telefone || 'N/A'}</td>
+                                <td class="p-3">${user.created_at ? new Date(user.created_at).toLocaleDateString('pt-BR') : 'N/A'}</td>
+                                <td class="p-3">
+                                    <button onclick="viewUser(${user.id})" class="text-blue-500 hover:text-blue-700 mr-2" title="Ver detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="deleteUser(${user.id})" class="text-red-500 hover:text-red-700" title="Excluir usuário">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('');
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="6" class="p-3 text-center text-gray-500">Nenhum usuário cadastrado</td></tr>';
+                    }
+                } else {
+                    console.error('❌ Erro ao carregar usuários:', response.status);
+                    document.getElementById('usersTable').innerHTML = '<tr><td colspan="6" class="p-3 text-center text-red-500">Erro ao carregar usuários</td></tr>';
+                }
+            } catch (error) {
+                console.error('💥 Erro ao carregar usuários:', error);
+                document.getElementById('usersTable').innerHTML = '<tr><td colspan="6" class="p-3 text-center text-red-500">Erro de conexão</td></tr>';
+            }
+        }
+
+        // Carregar pedidos - CORRIGIDO
+        async function loadOrders() {
+            try {
+                console.log('📦 Carregando pedidos...');
+                const response = await fetch(`${API_BASE_URL}/api/admin/orders`, {
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+                
+                console.log('📨 Resposta pedidos:', response.status);
+                
+                if (response.ok) {
+                    const orders = await response.json();
+                    console.log('📊 Pedidos carregados:', orders);
+                    
+                    const tbody = document.getElementById('ordersTable');
+                    if (orders && orders.length > 0) {
+                        tbody.innerHTML = orders.map(order => `
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-3 font-mono">#${order.id}</td>
+                                <td class="p-3">
+                                    <div class="font-medium">${order.customer_name || 'Cliente'}</div>
+                                    <div class="text-sm text-gray-500">${order.customer_email || ''}</div>
+                                </td>
+                                <td class="p-3 font-semibold">R$ ${parseFloat(order.total || 0).toFixed(2)}</td>
+                                <td class="p-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium ${
+                                        order.status === 'approved' ? 'bg-green-100 text-green-800 border border-green-200' :
+                                        order.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+                                        order.status === 'processing' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                                        'bg-red-100 text-red-800 border border-red-200'
+                                    }">
+                                        ${getStatusText(order.status)}
+                                    </span>
+                                </td>
+                                <td class="p-3 text-sm">${order.created_at ? new Date(order.created_at).toLocaleDateString('pt-BR') : 'N/A'}</td>
+                                <td class="p-3">
+                                    <button onclick="viewOrder(${order.id})" class="text-blue-500 hover:text-blue-700 mr-2" title="Ver detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="updateOrderStatus(${order.id})" class="text-green-500 hover:text-green-700" title="Alterar status">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('');
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="6" class="p-3 text-center text-gray-500">Nenhum pedido encontrado</td></tr>';
+                    }
+                } else {
+                    console.error('❌ Erro ao carregar pedidos:', response.status);
+                    document.getElementById('ordersTable').innerHTML = '<tr><td colspan="6" class="p-3 text-center text-red-500">Erro ao carregar pedidos</td></tr>';
+                }
+            } catch (error) {
+                console.error('💥 Erro ao carregar pedidos:', error);
+                document.getElementById('ordersTable').innerHTML = '<tr><td colspan="6" class="p-3 text-center text-red-500">Erro de conexão</td></tr>';
+            }
+        }
+
+        // Texto para status - NOVA FUNÇÃO
+        function getStatusText(status) {
+            const statusMap = {
+                'approved': 'Aprovado',
+                'pending': 'Pendente', 
+                'processing': 'Processando',
+                'rejected': 'Rejeitado',
+                'cancelled': 'Cancelado'
+            };
+            return statusMap[status] || status;
+        }
+
+        // Inicializar gráficos - CORRIGIDO
+        function initializeCharts(chartData = null) {
+            // Dados padrão caso API não retorne
+            const defaultData = {
+                approved: 5,
+                pending: 2,
+                rejected: 1,
+                processing: 1
+            };
+            
+            const data = chartData || defaultData;
+
+            // Gráfico de vendas (linha)
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            if (window.salesChart) window.salesChart.destroy();
+            window.salesChart = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Vendas (R$)',
+                        data: [1200, 1900, 1500, 2200, 1800, 2500],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de status de pedidos (doughnut) - CORRIGIDO
+            const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+            if (window.ordersChart) window.ordersChart.destroy();
+            window.ordersChart = new Chart(ordersCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Aprovados', 'Pendentes', 'Processando', 'Rejeitados'],
+                    datasets: [{
+                        data: [data.approved, data.pending, data.processing, data.rejected],
+                        backgroundColor: [
+                            '#43e97b', // Verde - Aprovados
+                            '#f6d365', // Amarelo - Pendentes
+                            '#4facfe', // Azul - Processando  
+                            '#f5576c'  // Vermelho - Rejeitados
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Funções globais para os botões
+        window.viewUser = function(userId) {
+            alert(`👤 Visualizando usuário ID: ${userId}\n\nEm uma versão completa, aqui apareceriam todos os detalhes do usuário, histórico de pedidos, etc.`);
+        };
+
+        window.deleteUser = function(userId) {
+            if (confirm(`⚠️ Tem certeza que deseja excluir o usuário ID: ${userId}?`)) {
+                fetch(`${API_BASE_URL}/api/admin/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('✅ Usuário excluído com sucesso!');
+                        loadUsers(); // Recarregar lista
+                    } else {
+                        alert('❌ Erro ao excluir usuário: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('❌ Erro de conexão ao excluir usuário');
+                    console.error(error);
+                });
+            }
+        };
+
+        window.viewOrder = function(orderId) {
+            alert(`📦 Visualizando pedido ID: ${orderId}\n\nEm uma versão completa, aqui apareceriam todos os detalhes do pedido, itens, endereço de entrega, etc.`);
+        };
+
+        window.updateOrderStatus = function(orderId) {
+            const newStatus = prompt(`🔄 Alterar status do pedido #${orderId}\n\nDigite o novo status:\n- approved (Aprovado)\n- pending (Pendente)\n- processing (Processando)\n- rejected (Rejeitado)`);
+            
+            if (newStatus && ['approved', 'pending', 'processing', 'rejected'].includes(newStatus)) {
+                fetch(`${API_BASE_URL}/api/admin/orders/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('✅ Status do pedido atualizado com sucesso!');
+                        loadOrders(); // Recarregar lista
+                    } else {
+                        alert('❌ Erro ao atualizar status: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('❌ Erro de conexão ao atualizar status');
+                    console.error(error);
+                });
+            } else if (newStatus) {
+                alert('❌ Status inválido! Use: approved, pending, processing ou rejected');
+            }
+        };
+
+        // Teste de conexão com API
+        async function testConnection() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/health`);
+                const data = await response.json();
+                console.log('✅ Conexão com backend:', data);
+            } catch (error) {
+                console.error('❌ Backend offline:', error);
+            }
+        }
+
+        // Inicializar
+        testConnection();
+        loadDashboard();
+    </script>
+</body>
+</html>

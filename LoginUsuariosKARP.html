@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | KARPE</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200px 0' },
+                            '100%': { backgroundPosition: '200px 0' },
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'grid-pattern': 'linear-gradient(to right, #f0f0f0 1px, transparent 1px), linear-gradient(to bottom, #f0f0f0 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        .border-glow {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .input-elegant {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        }
+        
+        .input-elegant:focus {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-karp {
+            background: linear-gradient(135deg, #000000 0%, #2d3748 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-karp:hover {
+            background: linear-gradient(135deg, #2d3748 0%, #000000 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-karp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-karp:hover::before {
+            left: 100%;
+        }
+        
+        .grid-background {
+            background-image: 
+                linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+                linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(2deg); }
+            66% { transform: translateY(10px) rotate(-2deg); }
+        }
+        
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
+            color: transparent;
+        }
+        
+        .social-btn {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white relative overflow-x-hidden">
+    <!-- Background Elements -->
+    <div class="fixed inset-0 grid-background opacity-10 pointer-events-none"></div>
+    
+    <!-- Floating Elements -->
+    <div class="fixed top-10 left-10 w-20 h-20 bg-black rounded-full opacity-5 floating-element"></div>
+    <div class="fixed top-20 right-20 w-16 h-16 bg-black rounded-full opacity-5 floating-element" style="animation-delay: 2s;"></div>
+    <div class="fixed bottom-20 left-20 w-24 h-24 bg-black rounded-full opacity-5 floating-element" style="animation-delay: 4s;"></div>
+    
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-white text-lg"></i>
+                    </div>
+                    <span class="text-2xl font-black tracking-widest text-black">KARPE</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm font-medium text-gray-600 hover:text-black transition-colors uppercase tracking-widest">Início</a>
+                    <a href="Roupas.html" class="text-sm font-medium text-gray-600 hover:text-black transition-colors uppercase tracking-widest">Roupas</a>
+                    <a href="Calçados.html" class="text-sm font-medium text-gray-600 hover:text-black transition-colors uppercase tracking-widest">Calçados</a>
+                    <a href="SkinCare.html" class="text-sm font-medium text-gray-600 hover:text-black transition-colors uppercase tracking-widest">Skincare</a>
+                </nav>
+                
+                <!-- Actions -->
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-gray-600 hover:text-black transition-colors">
+                        <i class="fas fa-search text-lg"></i>
+                    </button>
+                    <a href="Carrinho.html" class="p-2 text-gray-600 hover:text-black transition-colors">
+                        <i class="fas fa-shopping-bag text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-32 pb-20 px-4">
+        <div class="max-w-2xl mx-auto">
+            <!-- Hero Section -->
+            <div class="text-center mb-16 animate__animated animate__fadeInUp">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-black rounded-full mb-6">
+                    <i class="fas fa-sign-in-alt text-2xl text-white"></i>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-black text-black mb-4 text-glow tracking-tight">
+                    ACESSE SUA <span class="text-stroke">CONTA</span>
+                </h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Entre no universo KARPE e descubra uma experiência de moda exclusiva.
+                </p>
+            </div>
+
+            <!-- Login Card -->
+            <div class="max-w-md mx-auto">
+                <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 hover-lift p-8 md:p-12 animate__animated animate__fadeInUp">
+                    <form id="loginForm" class="space-y-8">
+                        <!-- Email -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-widest">
+                                <i class="fas fa-envelope mr-2 text-gray-400"></i>E-mail
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email"
+                                class="w-full px-4 py-4 input-elegant border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-all duration-300"
+                                placeholder="seu@email.com"
+                                required
+                            >
+                        </div>
+
+                        <!-- Password -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-widest">
+                                <i class="fas fa-lock mr-2 text-gray-400"></i>Senha
+                            </label>
+                            <input 
+                                type="password" 
+                                id="password"
+                                class="w-full px-4 py-4 input-elegant border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-all duration-300"
+                                placeholder="Sua senha"
+                                required
+                            >
+                        </div>
+
+                        <!-- Options -->
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center space-x-2">
+                                <input 
+                                    type="checkbox" 
+                                    id="remember"
+                                    class="w-4 h-4 text-black bg-white border-gray-300 rounded focus:ring-black focus:ring-2"
+                                >
+                                <span class="text-sm text-gray-600">Lembrar-me</span>
+                            </label>
+                            <a href="#" class="text-sm text-gray-600 hover:text-black transition-colors font-medium">
+                                Esqueceu a senha?
+                            </a>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            class="w-full py-4 px-8 btn-karp text-white font-bold rounded-xl text-lg transition-all duration-300 transform hover:scale-105"
+                        >
+                            <i class="fas fa-sign-in-alt mr-3"></i>ENTRAR NA KARPE
+                        </button>
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="relative my-8">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-white text-gray-500 uppercase tracking-widest font-semibold">ou continue com</span>
+                        </div>
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="social-btn flex items-center justify-center px-4 py-3 bg-white rounded-xl border border-gray-200 text-gray-700 hover:border-black hover:text-black transition-all duration-300">
+                            <i class="fab fa-google text-red-500 mr-3"></i>
+                            <span class="text-sm font-medium">Google</span>
+                        </button>
+                        <button class="social-btn flex items-center justify-center px-4 py-3 bg-white rounded-xl border border-gray-200 text-gray-700 hover:border-black hover:text-black transition-all duration-300">
+                            <i class="fab fa-facebook-f text-blue-500 mr-3"></i>
+                            <span class="text-sm font-medium">Facebook</span>
+                        </button>
+                    </div>
+
+                    <!-- Registration Link -->
+                    <div class="text-center mt-8 pt-8 border-t border-gray-100">
+                        <p class="text-gray-600">
+                            Novo na KARPE? 
+                            <a href="cadastro.html" class="text-black font-bold hover:underline transition-all">
+                                Crie sua conta
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h4 class="text-lg font-bold mb-4 tracking-widest">KARPE</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Moda com atitude. Design com propósito.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 tracking-widest uppercase">Loja</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="Novidades.html" class="text-gray-400 hover:text-white transition-colors">Novidades</a></li>
+                        <li><a href="Roupas.html" class="text-gray-400 hover:text-white transition-colors">Roupas</a></li>
+                        <li><a href="Calçados.html" class="text-gray-400 hover:text-white transition-colors">Calçados</a></li>
+                        <li><a href="SkinCare.html" class="text-gray-400 hover:text-white transition-colors">Skincare</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 tracking-widest uppercase">Informações</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Sobre nós</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Trocas e devoluções</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Entregas</a></li>
+                        <li><a href="Politica de privacidade.html" class="text-gray-400 hover:text-white transition-colors">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 tracking-widest uppercase">Contato</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="text-gray-400">karpe.companyy@gmail.com</li>
+                        <li><a href="https://www.instagram.com/karp_company" class="text-gray-400 hover:text-white transition-colors">@Karpe_company</a></li>
+                        <li class="text-gray-400">Pirapora-MG</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-facebook-f text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-twitter text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="backend/Back-end arquivos/LoginUsuariosKARP.js" defer></script>
+
+</body>
+</html>

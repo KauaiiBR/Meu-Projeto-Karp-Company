@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roupas | KARPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE STYLES - MOBILE FIRST */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --transition: all 0.3s ease;
+            --spacing: 40px;
+            --spacing-md: 60px;
+            --spacing-lg: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: var(--spacing) 0;
+        }
+
+        /* HEADER - MOBILE FIRST */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 12px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+            backdrop-filter: blur(10px);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 1001;
+            flex-shrink: 0;
+        }
+
+        /* Menu Hamburger - Mobile First */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--black);
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .header__nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--white);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .header__nav.active {
+            right: 0;
+        }
+
+        .header__nav-list {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 25px;
+            text-align: center;
+        }
+
+        .header__nav-item {
+            margin: 0;
+        }
+
+        .header__nav-link {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            text-decoration: none;
+            color: var(--black);
+            padding: 8px 0;
+            display: block;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__action {
+            font-size: 1.6rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .header__action:hover {
+            transform: scale(1.1);
+        }
+
+        .header__action a {
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--black);
+        }
+
+        .header__action-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: var(--black);
+            color: var(--white);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .fa-user-check {
+            color: #10B981 !important;
+        }
+
+        /* HERO ROUPAS - MOBILE */
+        .hero-roupas {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero-roupas__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-roupas__content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-roupas__title {
+            font-size: 3.2rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-roupas__subtitle {
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        /* CATEGORIAS - MOBILE */
+        .categorias {
+            padding: var(--spacing) 0;
+        }
+
+        .categorias__title {
+            font-size: 2.4rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .categorias__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .categoria-card {
+            position: relative;
+            overflow: hidden;
+            height: 180px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .categoria-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .categoria-card:hover .categoria-card__image {
+            transform: scale(1.05);
+        }
+
+        .categoria-card__content {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+        }
+
+        .categoria-card__title {
+            font-size: 1.5rem;
+            color: var(--white);
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* PRODUTOS - MOBILE */
+        .produtos {
+            padding: var(--spacing) 0;
+            background-color: var(--gray-1);
+        }
+
+        .produtos__header {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .produtos__title {
+            font-size: 2.4rem;
+            font-weight: 500;
+        }
+
+        .produtos__filters {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .produtos__filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .produtos__filter {
+            font-size: 1.3rem;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            padding: 8px 0;
+            color: var(--gray-5);
+            transition: var(--transition);
+        }
+
+        .produtos__filter.active {
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .produtos__filter:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--black);
+            transition: var(--transition);
+        }
+
+        .produtos__filter.active:after,
+        .produtos__filter:active:after {
+            width: 100%;
+        }
+
+        .produtos__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .produto-card {
+            position: relative;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .produto-card__badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--black);
+            color: var(--white);
+            padding: 4px 8px;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            z-index: 2;
+            border-radius: 4px;
+        }
+
+        .produto-card__image-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 12px;
+            height: 200px;
+        }
+
+        .produto-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .produto-card:hover .produto-card__image {
+            transform: scale(1.03);
+        }
+
+        .produto-card__quickview {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--black);
+            color: var(--white);
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+            transform: translateY(100%);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+        }
+
+        .produto-card:hover .produto-card__quickview {
+            transform: translateY(0);
+        }
+
+        .produto-card__content {
+            padding: 0 12px 12px;
+        }
+
+        .produto-card__title {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .produto-card__price {
+            font-size: 1.3rem;
+            color: var(--gray-5);
+            font-weight: 500;
+        }
+
+        /* ==================== NOVOS ESTILOS PARA OS BOTÕES ==================== */
+        
+        /* Seção de ações do produto */
+        .produto-card__actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            gap: 10px;
+        }
+
+        /* Botão de ação geral */
+        .produto-card__action-btn {
+            background: transparent;
+            border: 1px solid var(--gray-3);
+            color: var(--gray-5);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Botão Ver Detalhes */
+        .produto-card__action-btn.ver-detalhes {
+            background: var(--gray-1);
+            border-color: var(--gray-2);
+        }
+
+        /* Botão Favorito */
+        .produto-card__action-btn.favorito {
+            width: 40px;
+            padding: 8px;
+            flex: 0 0 auto;
+        }
+
+        /* Hover states (se suportado) */
+        @media (hover: hover) {
+            .produto-card__action-btn:hover {
+                background: var(--gray-1);
+                border-color: var(--gray-4);
+                color: var(--black);
+            }
+            
+            .produto-card__action-btn.favorito:hover {
+                background: #FEE2E2;
+                border-color: #FCA5A5;
+                color: #EF4444;
+            }
+        }
+
+        /* Estado ativo do favorito */
+        .produto-card__action-btn.favorito.active i {
+            color: #EF4444;
+        }
+
+        /* Mobile responsive para os botões */
+        @media (max-width: 767px) {
+            .produto-card__actions {
+                flex-wrap: wrap;
+            }
+            
+            .produto-card__action-btn {
+                font-size: 1.1rem;
+                padding: 6px 10px;
+            }
+            
+            .produto-card__action-btn.favorito {
+                width: 36px;
+                padding: 6px;
+            }
+        }
+
+        /* FOOTER - MOBILE */
+        .footer {
+            padding: 50px 0 30px;
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer__col {
+            text-align: center;
+        }
+
+        .footer__title {
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .footer__links {
+            list-style: none;
+        }
+
+        .footer__link {
+            margin-bottom: 10px;
+        }
+
+        .footer__link a {
+            font-size: 1.3rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__link a:active {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-6);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .footer__copyright {
+            font-size: 1.1rem;
+            color: var(--gray-4);
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer__social-link {
+            font-size: 1.6rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+            padding: 5px;
+        }
+
+        .footer__social-link:active {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE STYLES - TABLET */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .section {
+                padding: var(--spacing-md) 0;
+            }
+
+            .header {
+                padding: 15px 0;
+            }
+
+            .header__logo {
+                font-size: 2rem;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .header__nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                display: flex;
+            }
+
+            .header__nav-list {
+                flex-direction: row;
+                gap: 25px;
+            }
+
+            .header__nav-link {
+                font-size: 1.3rem;
+                padding: 0;
+            }
+
+            .header__actions {
+                gap: 20px;
+            }
+
+            .hero-roupas {
+                min-height: 60vh;
+                margin-top: 70px;
+            }
+
+            .hero-roupas__content {
+                text-align: left;
+                max-width: 60%;
+            }
+
+            .hero-roupas__title {
+                font-size: 4.8rem;
+            }
+
+            .categorias__title {
+                font-size: 3rem;
+            }
+
+            .categorias__grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+
+            .categoria-card {
+                height: 220px;
+            }
+
+            .produtos__header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+
+            .produtos__filters {
+                overflow-x: visible;
+                gap: 25px;
+            }
+
+            .produtos__grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .produto-card__image-container {
+                height: 250px;
+            }
+
+            .footer__top {
+                grid-template-columns: repeat(2, 1fr);
+                text-align: left;
+            }
+
+            .footer__col {
+                text-align: left;
+            }
+        }
+
+        /* RESPONSIVE STYLES - DESKTOP */
+        @media (min-width: 992px) {
+            .section {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .hero-roupas {
+                min-height: 70vh;
+                margin-top: 80px;
+            }
+
+            .hero-roupas__title {
+                font-size: 6.4rem;
+            }
+
+            .categorias__title {
+                font-size: 3.6rem;
+                margin-bottom: 5rem;
+            }
+
+            .categorias__grid {
+                gap: 30px;
+            }
+
+            .categoria-card {
+                height: 280px;
+            }
+
+            .produtos__grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+
+            .produto-card__image-container {
+                height: 320px;
+            }
+
+            .footer__top {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .footer__bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        /* RESPONSIVE STYLES - LARGE DESKTOP */
+        @media (min-width: 1200px) {
+            .categoria-card {
+                height: 320px;
+            }
+
+            .produto-card__image-container {
+                height: 350px;
+            }
+        }
+
+        /* UTILITIES */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Touch improvements */
+        @media (hover: hover) {
+            .categoria-card:hover .categoria-card__image {
+                transform: scale(1.05);
+            }
+            
+            .produto-card:hover .produto-card__image {
+                transform: scale(1.03);
+            }
+            
+            .produto-card:hover .produto-card__quickview {
+                transform: translateY(0);
+            }
+            
+            .footer__link a:hover,
+            .footer__social-link:hover {
+                color: var(--white);
+            }
+            
+            .produtos__filter:hover:after {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">KARPE</div>
+                
+                <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="nav" aria-label="Navegação principal">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="Novidades.html" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class='header__nav-link' href='Roupas.html'>Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class='header__nav-link' href='SkinCare.html'>Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <!-- Ícone de Login -->
+                    <div class="header__action">
+                        <a href="LoginUsuariosKARP.html" aria-label="Login" id="loginIcon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                    <!-- Ícone do Carrinho -->
+                    <div class="header__action">
+                        <a href="carrinho.html" aria-label="Carrinho de compras">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24">
+                                <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
+                            </svg>
+                            <span class="header__action-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO ROUPAS -->
+    <section class="hero-roupas">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+             alt="Coleção de Roupas KARPE" 
+             class="hero-roupas__image"
+             loading="eager">
+        <div class="container">
+            <div class="hero-roupas__content">
+                <h1 class="hero-roupas__title">COLEÇÃO ROUPAS</h1>
+                <p class="hero-roupas__subtitle">Peças essenciais para um guarda-roupa atemporal</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias section">
+        <div class="container">
+            <h2 class="categorias__title">Explore por Categoria</h2>
+            <div class="categorias__grid">
+                <div class="categoria-card">
+                    <img src="https://i.pinimg.com/1200x/ca/e0/3b/cae03b2986505000b8647d9e3dce05ac.jpg" 
+                         alt="Camisetas KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Camisetas</h3>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <img src="https://i.pinimg.com/1200x/88/af/c1/88afc131398cb2edc0a3adc9fa8e3cfb.jpg" 
+                         alt="Calças KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Calças</h3>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <img src="https://i.pinimg.com/1200x/6f/27/a1/6f27a1eeb0b25c2dab6ee27aa1e83e2e.jpg" 
+                         alt="Casacos KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Casacos</h3>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <img src="https://i.pinimg.com/736x/da/29/16/da29169512f89118cf539ddbd5331b29.jpg" 
+                         alt="Acessórios KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Relógios</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="produtos section">
+        <div class="container">
+            <div class="produtos__header">
+                <h2 class="produtos__title">Todos os Produtos</h2>
+                <div class="produtos__filters">
+                    <div class="produtos__filter active">Todos</div>
+                    <div class="produtos__filter">Novidades</div>
+                    <div class="produtos__filter">Mais Vendidos</div>
+                    <div class="produtos__filter">Coleção Outono/Inverno</div>
+                </div>
+            </div>
+            <div class="produtos__grid">
+                <!-- Produto 1 -->
+                <div class="produto-card" data-id="1" data-categoria="roupas" data-preco="1.90">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Novidade</span>
+                        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=725&q=80" 
+                             alt="Camiseta Essential KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="1">
+                            <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                        </button>  
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Camiseta Essential</h3>
+                        <p class="produto-card__price">R$ 1,90</p>
+                        <!-- NOVA SEÇÃO DE BOTÕES -->
+                        <div class="produto-card__actions">
+                            <button class="produto-card__action-btn ver-detalhes" data-product-id="1">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </button>
+                            <button class="produto-card__action-btn favorito" data-product-id="1">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="produto-card" data-id="2" data-categoria="roupas" data-preco="1.90">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Mais Vendido</span>
+                        <img src="https://i.pinimg.com/1200x/c8/76/d8/c876d80ceab03dbc0949ddb70480e2a0.jpg" 
+                             alt="Calça Slim Fit KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="2">
+                            <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                        </button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Calça Alfaiataria</h3>
+                        <p class="produto-card__price">R$ 1,90</p>
+                        <!-- NOVA SEÇÃO DE BOTÕES -->
+                        <div class="produto-card__actions">
+                            <button class="produto-card__action-btn ver-detalhes" data-product-id="2">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </button>
+                            <button class="produto-card__action-btn favorito" data-product-id="2">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="produto-card" data-id="3" data-categoria="roupas" data-preco="1.90">
+                    <div class="produto-card__image-container">
+                        <img src="https://i.pinimg.com/1200x/7c/3b/1b/7c3b1b3ac5a722fb7bcef5b79840498d.jpg" 
+                             alt="Jaqueta Minimal KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="3">
+                            <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                        </button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Jaqueta Minimal</h3>
+                        <p class="produto-card__price">R$ 1,90</p>
+                        <!-- NOVA SEÇÃO DE BOTÕES -->
+                        <div class="produto-card__actions">
+                            <button class="produto-card__action-btn ver-detalhes" data-product-id="3">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </button>
+                            <button class="produto-card__action-btn favorito" data-product-id="3">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="produto-card" data-id="4" data-categoria="roupas" data-preco="1.90">
+                    <div class="produto-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Camiseta Básica KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="4">
+                            <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                        </button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Camiseta Básica</h3>
+                        <p class="produto-card__price">R$ 1,90</p>
+                        <!-- NOVA SEÇÃO DE BOTÕES -->
+                        <div class="produto-card__actions">
+                            <button class="produto-card__action-btn ver-detalhes" data-product-id="4">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </button>
+                            <button class="produto-card__action-btn favorito" data-product-id="4">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="produto-card" data-id="5" data-categoria="roupas" data-preco="1.90">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Novidade</span>
+                        <img src="https://i.pinimg.com/1200x/e6/a5/a8/e6a5a832f7f0d8ebfe2c07a75838fc1c.jpg" 
+                             alt="Blazer Premium KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="5">
+                            <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                        </button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Blazer Premium</h3>
+                        <p class="produto-card__price">R$ 1,90</p>
+                        <!-- NOVA SEÇÃO DE BOTÕES -->
+                        <div class="produto-card__actions">
+                            <button class="produto-card__action-btn ver-detalhes" data-product-id="5">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </button>
+                            <button class="produto-card__action-btn favorito" data-product-id="5">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 6 -->
+                <div class="produto-card" data-id="6" data-categoria="roupas" data-preco="1.90">
+                    <div class="produto-card__image-container">
+                        <img src="https://i.pinimg.com/1200x/ce/ed/ad/ceedad7d2948837d4c26cede1b918f4d.jpg" 
+                             alt="Cinto de Couro KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="6">
+                            <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                        </button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Cinto de Couro</h3>
+                        <p class="produto-card__price">R$ 1,90</p>
+                        <!-- NOVA SEÇÃO DE BOTÕES -->
+                        <div class="produto-card__actions">
+                            <button class="produto-card__action-btn ver-detalhes" data-product-id="6">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </button>
+                            <button class="produto-card__action-btn favorito" data-product-id="6">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__col">
+                    <h4 class="footer__title">KARPE</h4>
+                    <p style="color: var(--gray-4); font-size: 1.3rem; line-height: 1.5;">Moda com atitude. Design com propósito.</p>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Loja</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="Novidades.html">Novidades</a></li>
+                        <li class="footer__link"><a href='Roupas.html'>Roupas</a></li>
+                        <li class="footer__link"><a href="Calçados.html">Calçados</a></li>
+                        <li class="footer__link"><a href='SkinCare.html'>Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Informações</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="index.html">Sobre nós</a></li>
+                        <li class="footer__link"><a href="#">Trocas e devoluções</a></li>
+                        <li class="footer__link"><a href="#">Entregas</a></li>
+                        <li class="footer__link"><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Contato</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="mailto:karpe.companyy@gmail.com">karpe.companyy@gmail.com</a></li>
+                        <li class="footer__link"><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                        <li class="footer__link"><a href="#">Pirapora-MG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <script src="backend/Back-end arquivos/roupas.js" defer></script>
+</body>
+</html>

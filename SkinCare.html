@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare | KARPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE STYLES */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --spacing: 120px;
+            --spacing-md: 80px;
+            --spacing-sm: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: var(--spacing) 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--black);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--gray-6);
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header__logo {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            z-index: 1001;
+        }
+
+        .header__nav {
+            display: flex;
+        }
+
+        .header__nav-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .header__nav-item {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .header__nav-link {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .header__nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            transition: var(--transition);
+        }
+
+        .header__nav-link:hover:after {
+            width: 100%;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action {
+            margin-left: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .header__action:hover {
+            transform: scale(1.1);
+        }
+
+        .header__action a {
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action svg {
+            width: 24px;
+            height: 24px;
+            fill: black;
+        }
+
+        .header__action-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--black);
+            color: var(--white);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fa-user-check {
+            color: #10B981 !important;
+        }
+
+        /* User Dropdown Menu */
+        .user-dropdown {
+            position: relative;
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: white;
+            border: 1px solid var(--gray-2);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 10000;
+            min-width: 200px;
+            font-family: inherit;
+        }
+
+        .user-dropdown-menu div:first-child {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .user-dropdown-menu div:nth-child(2) {
+            margin-bottom: 15px;
+            color: var(--gray-5);
+            font-size: 0.9rem;
+        }
+
+        .user-dropdown-menu hr {
+            margin: 10px 0;
+            border: none;
+            border-top: 1px solid var(--gray-2);
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Menu Hamburger (Mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--black);
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        /* HERO SKINCARE */
+        .hero-skincare {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+            background-color: var(--gray-1);
+        }
+
+        .hero-skincare__content {
+            position: relative;
+            z-index: 2;
+            max-width: 60%;
+            padding: 0 20px;
+        }
+
+        .hero-skincare__title {
+            font-size: 6.4rem;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-skincare__subtitle {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ROTINA SKINCARE */
+        .rotina {
+            padding: var(--spacing) 0;
+            background-color: var(--white);
+        }
+
+        .rotina__header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .rotina__title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .rotina__description {
+            font-size: 1.6rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .rotina__steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .rotina-step {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .rotina-step__number {
+            font-size: 1.4rem;
+            color: var(--gray-4);
+            margin-bottom: 15px;
+        }
+
+        .rotina-step__title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .rotina-step__description {
+            font-size: 1.4rem;
+            color: var(--gray-5);
+        }
+
+        /* PRODUTOS */
+        .produtos {
+            padding: var(--spacing) 0;
+            background-color: var(--gray-1);
+        }
+
+        .produtos__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 6rem;
+            flex-wrap: wrap;
+        }
+
+        .produtos__title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .produtos__filters {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .produtos__filter {
+            font-size: 1.4rem;
+            cursor: pointer;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .produtos__filter:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            transition: var(--transition);
+        }
+
+        .produtos__filter:hover:after, .produtos__filter.active:after {
+            width: 100%;
+        }
+
+        .produtos__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .produto-card {
+            position: relative;
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .produto-card__badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--black);
+            color: var(--white);
+            padding: 5px 10px;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            z-index: 2;
+            border-radius: 3px;
+        }
+
+        .produto-card__image-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 300px;
+        }
+
+        .produto-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .produto-card:hover .produto-card__image {
+            transform: scale(1.05);
+        }
+
+        .produto-card__quickview {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--black);
+            color: var(--white);
+            text-align: center;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            transform: translateY(100%);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .produto-card:hover .produto-card__quickview {
+            transform: translateY(0);
+        }
+
+        .produto-card__title {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .produto-card__category {
+            font-size: 1.2rem;
+            color: var(--gray-4);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .produto-card__price {
+            font-size: 1.6rem;
+            color: var(--gray-5);
+            font-weight: 500;
+        }
+
+        /* BENEFICIOS */
+        .beneficios {
+            padding: var(--spacing) 0;
+            background-color: var(--white);
+        }
+
+        .beneficios__header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .beneficios__title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .beneficios__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .beneficio-card {
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 8px;
+            background-color: var(--gray-1);
+            transition: var(--transition);
+        }
+
+        .beneficio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .beneficio-card__icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .beneficio-card__title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .beneficio-card__description {
+            font-size: 1.4rem;
+            color: var(--gray-5);
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 80px 0 40px;
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer__title {
+            font-size: 1.4rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer__links {
+            list-style: none;
+        }
+
+        .footer__link {
+            margin-bottom: 12px;
+        }
+
+        .footer__link a {
+            font-size: 1.4rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__link a:hover {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-6);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer__copyright {
+            font-size: 1.2rem;
+            color: var(--gray-4);
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer__social-link {
+            font-size: 1.6rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__social-link:hover {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE STYLES */
+        @media (max-width: 1200px) {
+            .rotina__steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .produtos__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .beneficios__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-skincare__title {
+                font-size: 5.4rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            :root {
+                --spacing: 80px;
+                --spacing-md: 60px;
+                --spacing-sm: 30px;
+            }
+            
+            .header__nav-item {
+                margin-left: 20px;
+            }
+            
+            .hero-skincare__content {
+                max-width: 70%;
+            }
+            
+            .hero-skincare__title {
+                font-size: 4.8rem;
+            }
+            
+            .footer__top {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .header__nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            
+            .header__nav.active {
+                right: 0;
+            }
+            
+            .header__nav-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .header__nav-item {
+                margin-left: 0;
+            }
+            
+            .header__actions {
+                margin-left: auto;
+            }
+            
+            .hero-skincare {
+                height: 60vh;
+                margin-top: 70px;
+            }
+            
+            .hero-skincare__content {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .hero-skincare__title {
+                font-size: 4rem;
+            }
+            
+            .hero-skincare__subtitle {
+                font-size: 1.6rem;
+            }
+            
+            .rotina__steps {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .produtos__header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .produtos__filters {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .produtos__filters::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .produtos__grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .produto-card__image-container {
+                height: 250px;
+            }
+            
+            .beneficios__grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .beneficio-card {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 15px 0;
+            }
+            
+            .header__logo {
+                font-size: 2rem;
+            }
+            
+            .header__action {
+                margin-left: 15px;
+                font-size: 1.4rem;
+            }
+            
+            .hero-skincare {
+                height: 50vh;
+            }
+            
+            .hero-skincare__title {
+                font-size: 3.2rem;
+            }
+            
+            .hero-skincare__subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .rotina__title, .produtos__title, .beneficios__title {
+                font-size: 2.8rem;
+            }
+            
+            .produtos__grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .produto-card__image-container {
+                height: 220px;
+            }
+            
+            .footer__top {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer__bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer__social {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-skincare__title {
+                font-size: 2.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1.2rem;
+            }
+            
+            .produto-card {
+                padding: 15px;
+            }
+            
+            .produto-card__image-container {
+                height: 200px;
+            }
+        }
+
+        /* Classe utilitária para esconder elementos em mobile */
+        .mobile-hidden {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-hidden {
+                display: none;
+            }
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Notificações */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.4rem;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">KARPE</div>
+                
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="Novidades.html" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class='header__nav-link' href='Roupas.html'>Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class='header__nav-link' href='SkinCare.html'>Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__actions">
+                    <!-- Ícone de Login/Cadastro -->
+                    <div class="header__action user-dropdown">
+                        <a href="LoginUsuariosKARP.html" aria-label="Login" id="loginIcon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+
+                    <div class="header__action mobile-hidden">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="header__action">
+                        <a href="carrinho.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24">
+                                <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
+                            </svg>
+                            <span class="header__action-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SKINCARE -->
+    <section class="hero-skincare section">
+        <div class="container">
+            <div class="hero-skincare__content">
+                <h1 class="hero-skincare__title">SKINCARE KARPE</h1>
+                <p class="hero-skincare__subtitle">Cuidados essenciais para uma pele saudável e radiante</p>
+                <a href="#produtos" class="btn btn--black">Conheça nossa linha</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROTINA SKINCARE -->
+    <section class="rotina section">
+        <div class="container">
+            <div class="rotina__header">
+                <h2 class="rotina__title">Rotina de Cuidados</h2>
+                <p class="rotina__description">Nossos produtos são desenvolvidos para se complementarem em uma rotina diária de cuidados com a pele, desde a limpeza até a hidratação profunda.</p>
+            </div>
+            <div class="rotina__steps">
+                <div class="rotina-step">
+                    <div class="rotina-step__number">01</div>
+                    <h3 class="rotina-step__title">Limpeza</h3>
+                    <p class="rotina-step__description">Remoção de impurezas e preparação da pele para os próximos passos</p>
+                </div>
+                <div class="rotina-step">
+                    <div class="rotina-step__number">02</div>
+                    <h3 class="rotina-step__title">Esfoliação</h3>
+                    <p class="rotina-step__description">Renovação celular e remoção de células mortas (2-3x/semana)</p>
+                </div>
+                <div class="rotina-step">
+                    <div class="rotina-step__number">03</div>
+                    <h3 class="rotina-step__title">Tonificação</h3>
+                    <p class="rotina-step__description">Equilíbrio do pH and preparação para absorção de ativos</p>
+                </div>
+                <div class="rotina-step">
+                    <div class="rotina-step__number">04</div>
+                    <h3 class="rotina-step__title">Hidratação</h3>
+                    <p class="rotina-step__description">Nutrição e proteção da barreira cutânea</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="produtos section" id="produtos">
+        <div class="container">
+            <div class="produtos__header">
+                <h2 class="produtos__title">Nossos Produtos</h2>
+                <div class="produtos__filters">
+                    <div class="produtos__filter active">Todos</div>
+                    <div class="produtos__filter">Limpeza</div>
+                    <div class="produtos__filter">Hidratação</div>
+                    <div class="produtos__filter">Especiais</div>
+                </div>
+            </div>
+            <div class="produtos__grid">
+                <!-- Produto 1 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Novidade</span>
+                        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Cleanser Facial" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product-id="13">Adicionar ao Carrinho</button>
+                    </div>
+                    <h3 class="produto-card__title">Cleanser Facial</h3>
+                    <p class="produto-card__category">Limpeza</p>
+                    <p class="produto-card__price">R$ 129,90</p>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Mais Vendido</span>
+                        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Hidratante Noturno" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product-id="14">Adicionar ao Carrinho</button>
+                    </div>
+                    <h3 class="produto-card__title">Hidratante Noturno</h3>
+                    <p class="produto-card__category">Hidratação</p>
+                    <p class="produto-card__price">R$ 179,90</p>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Esfoliante Suave" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product-id="15">Adicionar ao Carrinho</button>
+                    </div>
+                    <h3 class="produto-card__title">Esfoliante Suave</h3>
+                    <p class="produto-card__category">Esfoliação</p>
+                    <p class="produto-card__price">R$ 149,90</p>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Tônico Facial" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product-id="16">Adicionar ao Carrinho</button>
+                    </div>
+                    <h3 class="produto-card__title">Tônico Facial</h3>
+                    <p class="produto-card__category">Tonificação</p>
+                    <p class="produto-card__price">R$ 139,90</p>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Novidade</span>
+                        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Sérum Vitamina C" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product-id="17">Adicionar ao Carrinho</button>
+                    </div>
+                    <h3 class="produto-card__title">Sérum Vitamina C</h3>
+                    <p class="produto-card__category">Tratamento</p>
+                    <p class="produto-card__price">R$ 219,90</p>
+                </div>
+
+                <!-- Produto 6 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Protetor Solar FPS 50" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product-id="18">Adicionar ao Carrinho</button>
+                    </div>
+                    <h3 class="produto-card__title">Protetor Solar FPS 50</h3>
+                    <p class="produto-card__category">Proteção</p>
+                    <p class="produto-card__price">R$ 159,90</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section class="beneficios section">
+        <div class="container">
+            <div class="beneficios__header">
+                <h2 class="beneficios__title">Benefícios dos Nossos Produtos</h2>
+            </div>
+            <div class="beneficios__grid">
+                <div class="beneficio-card">
+                    <div class="beneficio-card__icon">🌿</div>
+                    <h3 class="beneficio-card__title">Ingredientes Naturais</h3>
+                    <p class="beneficio-card__description">Formulados com ativos naturais e orgânicos, livres de parabenos e sulfatos</p>
+                </div>
+                <div class="beneficio-card">
+                    <div class="beneficio-card__icon">⚡</div>
+                    <h3 class="beneficio-card__title">Eficiência Comprovada</h3>
+                    <p class="beneficio-card__description">Resultados visíveis a partir das primeiras semanas de uso</p>
+                </div>
+                <div class="beneficio-card">
+                    <div class="beneficio-card__icon">💧</div>
+                    <h3 class="beneficio-card__title">Hidratação Intensa</h3>
+                    <p class="beneficio-card__description">Fórmulas que respeitam a barreira natural da pele</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__col">
+                    <h4 class="footer__title">KARPE</h4>
+                    <p>Moda com atitude. Design com propósito.</p>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Loja</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="Novidades.html">Novidades</a></li>
+                        <li class="footer__link"><a href='Roupas.html'>Roupas</a></li>
+                        <li class="footer__link"><a href="Calçados.html">Calçados</a></li>
+                        <li class="footer__link"><a href='SkinCare.html'>Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Informações</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="index.html">Sobre nós</a></li>
+                        <li class="footer__link"><a href="#">Trocas e devoluções</a></li>
+                        <li class="footer__link"><a href="#">Entregas</a></li>
+                        <li class="footer__link"><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Contato</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="#">karpe.companyy@gmail.com</a></li>
+                        <li class="footer__link"><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                        <li class="footer__link"><a href="#">Pirapora-MG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="backend/Back-end arquivos/SkinCare.js" defer></script>
+    <script src="backend/API/KarpeAPI.js" defer></script>
+</body>
+</html>

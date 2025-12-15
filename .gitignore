@@ -1,0 +1,79 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Build outputs
+dist/
+build/
+.serverless/
+.fusebox/
+.dynamodb/
+
+# Package manager specific
+package-lock.json
+yarn.lock
+
+# Mercado Pago/Sensitive
+*.pem
+*.key
+*.cert
+
+# Banco de dados
+*.db
+*.sqlite
+*.sqlite3
+
+# Render/Railway
+.render.yaml
+.railway.json
+
+# Test
+*.test.js
+*.spec.js
+
+# Backup files
+*.bak
+*.old

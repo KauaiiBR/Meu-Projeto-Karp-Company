@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade | KARPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE STYLES */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --spacing: 120px;
+            --spacing-md: 80px;
+            --spacing-sm: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header__logo {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            z-index: 1001;
+        }
+
+        .header__nav {
+            display: flex;
+        }
+
+        .header__nav-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .header__nav-item {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .header__nav-link {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .header__nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            transition: var(--transition);
+        }
+
+        .header__nav-link:hover:after {
+            width: 100%;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action {
+            margin-left: 20px;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        .header__action a {
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        /* Menu Mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--black);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* PRIVACY HERO */
+        .privacy-hero {
+            padding: 150px 0 60px;
+            background-color: var(--gray-1);
+        }
+
+        .privacy-hero__title {
+            font-size: 4.8rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .privacy-hero__update {
+            font-size: 1.4rem;
+            color: var(--gray-4);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        /* PRIVACY CONTENT */
+        .privacy-content {
+            padding: var(--spacing) 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .privacy-section {
+            margin-bottom: 60px;
+        }
+
+        .privacy-section__title {
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: var(--black);
+        }
+
+        .privacy-section__text {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .privacy-list {
+            margin-bottom: 2rem;
+            padding-left: 20px;
+        }
+
+        .privacy-list__item {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .privacy-contact {
+            background-color: var(--gray-1);
+            padding: 40px;
+            border-left: 3px solid var(--black);
+            margin: 40px 0;
+        }
+
+        .privacy-contact__title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 80px 0 40px;
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer__title {
+            font-size: 1.4rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer__links {
+            list-style: none;
+        }
+
+        .footer__link {
+            margin-bottom: 12px;
+        }
+
+        .footer__link a {
+            font-size: 1.4rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__link a:hover {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-6);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer__copyright {
+            font-size: 1.2rem;
+            color: var(--gray-4);
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer__social-link {
+            font-size: 1.4rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__social-link:hover {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .privacy-hero__title {
+                font-size: 3.6rem;
+            }
+            
+            .privacy-content {
+                padding: 80px 40px;
+            }
+            
+            .footer__top {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .header__nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            
+            .header__nav.active {
+                right: 0;
+            }
+            
+            .header__nav-list {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                gap: 30px;
+            }
+            
+            .header__nav-item {
+                margin: 0;
+            }
+            
+            .header__nav-link {
+                font-size: 1.8rem;
+            }
+            
+            .privacy-hero {
+                padding: 130px 0 40px;
+            }
+            
+            .privacy-hero__title {
+                font-size: 3rem;
+            }
+            
+            .footer__top {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+            
+            .footer__bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer__social {
+                margin-top: 20px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header__logo {
+                font-size: 2rem;
+            }
+            
+            .privacy-hero {
+                padding: 110px 0 30px;
+            }
+            
+            .privacy-content {
+                padding: 60px 0;
+            }
+            
+            .privacy-section {
+                margin-bottom: 50px;
+            }
+            
+            .privacy-section__title {
+                font-size: 2rem;
+            }
+            
+            .privacy-section__text, .privacy-list__item {
+                font-size: 1.4rem;
+            }
+            
+            .privacy-contact {
+                padding: 20px;
+                margin: 30px 0;
+            }
+            
+            .footer {
+                padding: 60px 0 30px;
+            }
+            
+            .footer__top {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer__title {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .privacy-hero__title {
+                font-size: 2.6rem;
+            }
+            
+            .privacy-section__title {
+                font-size: 1.8rem;
+            }
+            
+            .privacy-section__text, .privacy-list__item {
+                font-size: 1.4rem;
+            }
+            
+            .privacy-contact {
+                padding: 15px;
+            }
+        }
+
+        /* Melhorias para toque em dispositivos móveis */
+        @media (hover: none) and (pointer: coarse) {
+            .header__nav-link:hover:after {
+                width: 0;
+            }
+            
+            .footer__link a:hover {
+                color: var(--gray-4);
+            }
+            
+            .footer__social-link:hover {
+                color: var(--gray-4);
+            }
+        }
+
+        /* Melhorias de acessibilidade para foco */
+        .header__nav-link:focus,
+        .footer__link a:focus,
+        .footer__social-link:focus {
+            outline: 2px solid var(--black);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">KARPE</div>
+                
+                <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="main-nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="/" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Roupas.html" class="header__nav-link">Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="SkinCare.html" class="header__nav-link">Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__actions">
+                    <div class="header__action">
+                        <a href="#">
+                            <i class="fas fa-search"></i>
+                        </a>
+                    </div>
+                    <div class="header__action">
+                        <a href="carrinho.html">
+                            <i class="fas fa-shopping-bag"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PRIVACY HERO -->
+    <section class="privacy-hero">
+        <div class="container">
+            <h1 class="privacy-hero__title">Política de Privacidade</h1>
+            <p class="privacy-hero__update">Última atualização: 15 de Julho de 2025</p>
+        </div>
+    </section>
+
+    <!-- PRIVACY CONTENT -->
+    <main class="privacy-content">
+        <div class="container">
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">1. Introdução</h2>
+                <p class="privacy-section__text">
+                    A KARPE ("nós", "nosso" ou "nossa") valoriza sua privacidade e está comprometida em proteger seus dados pessoais. Esta Política de Privacidade explica como coletamos, usamos, compartilhamos e protegemos suas informações quando você visita nosso site ou utiliza nossos serviços.
+                </p>
+                <p class="privacy-section__text">
+                    Ao acessar ou usar nosso site, você concorda com os termos desta Política de Privacidade. Se você não concordar com estes termos, por favor, não utilize nosso site.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">2. Dados que Coletamos</h2>
+                <p class="privacy-section__text">
+                    Podemos coletar os seguintes tipos de informações quando você interage conosco:
+                </p>
+                <ul class="privacy-list">
+                    <li class="privacy-list__item"><strong>Informações pessoais:</strong> nome, e-mail, endereço, telefone, CPF (quando necessário para emissão de nota fiscal)</li>
+                    <li class="privacy-list__item"><strong>Dados de pagamento:</strong> informações de cartão de crédito (processadas de forma segura por gateways de pagamento)</li>
+                    <li class="privacy-list__item"><strong>Dados de navegação:</strong> endereço IP, tipo de navegador, páginas acessadas, tempo de visita</li>
+                    <li class="privacy-list__item"><strong>Dados de compras:</strong> histórico de pedidos, produtos visualizados, preferências</li>
+                </ul>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">3. Como Usamos Seus Dados</h2>
+                <p class="privacy-section__text">
+                    Utilizamos suas informações pessoais para os seguintes fins:
+                </p>
+                <ul class="privacy-list">
+                    <li class="privacy-list__item">Processar seus pedidos e fornecer nossos serviços</li>
+                    <li class="privacy-list__item">Melhorar sua experiência no nosso site</li>
+                    <li class="privacy-list__item">Enviar comunicações sobre pedidos, produtos e promoções (se você consentir)</li>
+                    <li class="privacy-list__item">Prevenir fraudes e garantir a segurança do site</li>
+                    <li class="privacy-list__item">Cumprir obrigações legais e regulatórias</li>
+                </ul>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">4. Compartilhamento de Dados</h2>
+                <p class="privacy-section__text">
+                    Seus dados pessoais podem ser compartilhados com:
+                </p>
+                <ul class="privacy-list">
+                    <li class="privacy-list__item">Parceiros de pagamento para processamento de transações</li>
+                    <li class="privacy-list__item">Empresas de logística para entrega de produtos</li>
+                    <li class="privacy-list__item">Prestadores de serviços que nos auxiliam em operações comerciais</li>
+                    <li class="privacy-list__item">Autoridades competentes quando exigido por lei</li>
+                </ul>
+                <p class="privacy-section__text">
+                    Não vendemos ou alugamos seus dados pessoais para terceiros não afiliados sem seu consentimento explícito.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">5. Cookies e Tecnologias Semelhantes</h2>
+                <p class="privacy-section__text">
+                    Utilizamos cookies e tecnologias similares para:
+                </p>
+                <ul class="privacy-list">
+                    <li class="privacy-list__item">Lembrar suas preferências e configurações</li>
+                    <li class="privacy-list__item">Analisar o tráfego e uso do site</li>
+                    <li class="privacy-list__item">Personalizar conteúdo e anúncios</li>
+                    <li class="privacy-list__item">Melhorar a segurança do site</li>
+                </ul>
+                <p class="privacy-section__text">
+                    Você pode gerenciar suas preferências de cookies através das configurações do seu navegador.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">6. Seus Direitos</h2>
+                <p class="privacy-section__text">
+                    De acordo com a Lei Geral de Proteção de Dados (LGPD), você tem direito a:
+                </p>
+                <ul class="privacy-list">
+                    <li class="privacy-list__item">Acessar seus dados pessoais que armazenamos</li>
+                    <li class="privacy-list__item">Corrigir informações incompletas, inexatas ou desatualizadas</li>
+                    <li class="privacy-list__item">Solicitar a exclusão de seus dados pessoais</li>
+                    <li class="privacy-list__item">Revogar consentimentos previamente dados</li>
+                    <li class="privacy-list__item">Solicitar a portabilidade de dados para outro fornecedor de serviço</li>
+                </ul>
+                <div class="privacy-contact">
+                    <h3 class="privacy-contact__title">Para exercer seus direitos:</h3>
+                    <p>Envie um e-mail para: privacidade@karpe.com.br</p>
+                    <p>Ou escreva para: KARPE - Av. Principal, 1234, Pirapora-MG, CEP 39270-000</p>
+                </div>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">7. Segurança de Dados</h2>
+                <p class="privacy-section__text">
+                    Implementamos medidas técnicas e organizacionais adequadas para proteger seus dados pessoais contra acesso não autorizado, alteração, divulgação ou destruição. Isso inclui:
+                </p>
+                <ul class="privacy-list">
+                    <li class="privacy-list__item">Criptografia de dados sensíveis</li>
+                    <li class="privacy-list__item">Sistemas de segurança em nossos servidores</li>
+                    <li class="privacy-list__item">Acesso restrito a informações pessoais</li>
+                    <li class="privacy-list__item">Treinamento regular de nossa equipe</li>
+                </ul>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">8. Alterações nesta Política</h2>
+                <p class="privacy-section__text">
+                    Podemos atualizar esta Política de Privacidade periodicamente. A versão mais recente estará sempre disponível em nosso site com a data de "Última atualização". Alterações significativas serão comunicadas por e-mail (quando aplicável) ou por meio de um aviso em nosso site.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2 class="privacy-section__title">9. Contato</h2>
+                <p class="privacy-section__text">
+                    Se tiver dúvidas sobre esta Política de Privacidade ou sobre como tratamos seus dados pessoais, entre em contato conosco:
+                </p>
+                <p class="privacy-section__text">
+                    <strong>E-mail:</strong> privacidade@karpe.com.br<br>
+                    <strong>Endereço:</strong> KARPE - Av. Principal, 1234, Pirapora-MG, CEP 39270-000<br>
+                    <strong>Telefone:</strong> (38) 99999-9999
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__col">
+                    <h4 class="footer__title">KARPE</h4>
+                    <p>Moda com atitude. Design com propósito.</p>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Loja</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="#">Novidades</a></li>
+                        <li class="footer__link"><a href="Roupas.html">Roupas</a></li>
+                        <li class="footer__link"><a href="Calçados.html">Calçados</a></li>
+                        <li class="footer__link"><a href="SkinCare.html">Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Informações</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="KARPE.html">Sobre nós</a></li>
+                        <li class="footer__link"><a href="#">Trocas e devoluções</a></li>
+                        <li class="footer__link"><a href="#">Entregas</a></li>
+                        <li class="footer__link"><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Contato</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="#">karpe.companyy@gmail.com</a></li>
+                        <li class="footer__link"><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                        <li class="footer__link"><a href="#">Pirapora-MG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MAIN JS -->
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'var(--white)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'var(--white)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mainNav = document.getElementById('main-nav');
+        
+        mobileMenu.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            
+            // Animação do hamburger para X
+            const spans = mobileMenu.querySelectorAll('span');
+            if(mainNav.classList.contains('active')) {
+                spans[0].style.transform = 'translateY(9px) rotate(45deg)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'translateY(-9px) rotate(-45deg)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.header__nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mainNav.classList.remove('active');
+                
+                const spans = mobileMenu.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+
+        // Melhorar a experiência de toque em dispositivos móveis
+        document.addEventListener('touchstart', function() {}, {passive: true});
+
+        // Prevenir zoom em dispositivos móveis
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

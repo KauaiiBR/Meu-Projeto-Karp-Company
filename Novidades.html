@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novidades | KARPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE STYLES */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --spacing: 120px;
+            --spacing-md: 80px;
+            --spacing-sm: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: var(--spacing) 0;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+            backdrop-filter: blur(10px);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header__logo {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            z-index: 1001;
+        }
+
+        /* Menu Hamburger (Mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--black);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .header__nav {
+            display: flex;
+        }
+
+        .header__nav-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .header__nav-item {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .header__nav-link {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .header__nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            transition: var(--transition);
+        }
+
+        .header__nav-link:hover:after {
+            width: 100%;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action {
+            margin-left: 20px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .header__action:hover {
+            transform: scale(1.1);
+        }
+
+        .header__action a {
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--black);
+        }
+
+        .header__action-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--black);
+            color: var(--white);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .fa-user-check {
+            color: #10B981 !important;
+        }
+
+        /* HERO NOVIDADES */
+        .hero-novidades {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero-novidades__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-novidades__content {
+            position: relative;
+            z-index: 2;
+            max-width: 60%;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            padding: 0 20px;
+        }
+
+        .hero-novidades__title {
+            font-size: 6.4rem;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-novidades__subtitle {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* DESTAQUES */
+        .destaques {
+            padding: var(--spacing) 0;
+        }
+
+        .destaques__header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .destaques__title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .destaques__tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .destaques__tab {
+            padding: 10px 20px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .destaques__tab:hover {
+            background-color: var(--gray-1);
+        }
+
+        .destaques__tab--active {
+            font-weight: 600;
+            border-color: var(--black);
+        }
+
+        .destaques__tab--active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--black);
+        }
+
+        .destaques__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .destaque-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--white);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .destaque-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .destaque-card__badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--black);
+            color: var(--white);
+            padding: 5px 10px;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            z-index: 2;
+            border-radius: 3px;
+        }
+
+        .destaque-card__image-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 400px;
+        }
+
+        .destaque-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .destaque-card:hover .destaque-card__image {
+            transform: scale(1.03);
+        }
+
+        .destaque-card__content {
+            padding: 0 20px 20px;
+        }
+
+        .destaque-card__date {
+            font-size: 1.2rem;
+            color: var(--gray-4);
+            margin-bottom: 10px;
+        }
+
+        .destaque-card__title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .destaque-card__excerpt {
+            font-size: 1.4rem;
+            color: var(--gray-5);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .destaque-card__link {
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            color: var(--black);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .destaque-card__link i {
+            margin-left: 10px;
+            transition: var(--transition);
+        }
+
+        .destaque-card__link:hover {
+            color: var(--gray-5);
+        }
+
+        .destaque-card__link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* PRODUTOS NOVIDADES */
+        .produtos-novidades {
+            padding: var(--spacing) 0;
+            background-color: var(--gray-1);
+        }
+
+        .produtos-novidades__header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .produtos-novidades__title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .produtos-novidades__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .produto-card {
+            position: relative;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .produto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .produto-card__badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--black);
+            color: var(--white);
+            padding: 5px 10px;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            z-index: 2;
+            border-radius: 3px;
+        }
+
+        .produto-card__image-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 400px;
+        }
+
+        .produto-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .produto-card:hover .produto-card__image {
+            transform: scale(1.03);
+        }
+
+        .produto-card__quickview {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--black);
+            color: var(--white);
+            text-align: center;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            transform: translateY(100%);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+        }
+
+        .produto-card:hover .produto-card__quickview {
+            transform: translateY(0);
+        }
+
+        .produto-card__content {
+            padding: 0 20px 20px;
+        }
+
+        .produto-card__title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .produto-card__price {
+            font-size: 1.6rem;
+            color: var(--gray-5);
+            font-weight: 500;
+        }
+
+        /* NEWSLETTER */
+        .newsletter {
+            padding: var(--spacing) 0;
+            background-color: var(--gray-1);
+        }
+
+        .newsletter__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .newsletter__content {
+            max-width: 40%;
+            margin-bottom: 30px;
+        }
+
+        .newsletter__title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .newsletter__form {
+            display: flex;
+            width: 50%;
+            flex-wrap: wrap;
+        }
+
+        .newsletter__input {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid var(--black);
+            border-right: none;
+            font-size: 1.4rem;
+            background-color: transparent;
+            min-width: 250px;
+        }
+
+        .newsletter__submit {
+            padding: 0 40px;
+            border: 1px solid var(--black);
+            background-color: var(--black);
+            color: var(--white);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter__submit:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 80px 0 40px;
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer__title {
+            font-size: 1.4rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer__links {
+            list-style: none;
+        }
+
+        .footer__link {
+            margin-bottom: 12px;
+        }
+
+        .footer__link a {
+            font-size: 1.4rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__link a:hover {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-6);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer__copyright {
+            font-size: 1.2rem;
+            color: var(--gray-4);
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer__social-link {
+            font-size: 1.6rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__social-link:hover {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE STYLES */
+        @media (max-width: 1200px) {
+            .destaques__grid,
+            .produtos-novidades__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .newsletter__inner {
+                flex-direction: column;
+            }
+            
+            .newsletter__content {
+                max-width: 100%;
+                margin-bottom: 40px;
+            }
+            
+            .newsletter__form {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            :root {
+                --spacing: 80px;
+            }
+            
+            .hero-novidades__content {
+                max-width: 80%;
+            }
+            
+            .hero-novidades__title {
+                font-size: 5.4rem;
+            }
+            
+            .footer__top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .header__nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            
+            .header__nav.active {
+                right: 0;
+            }
+            
+            .header__nav-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .header__nav-item {
+                margin-left: 0;
+            }
+            
+            .header__actions {
+                margin-left: auto;
+            }
+
+            .hero-novidades {
+                height: 60vh;
+                margin-top: 70px;
+            }
+            
+            .hero-novidades__content {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .hero-novidades__title {
+                font-size: 4.8rem;
+            }
+            
+            .hero-novidades__subtitle {
+                font-size: 1.6rem;
+            }
+            
+            .destaques__tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .destaques__tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .destaques__grid,
+            .produtos-novidades__grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .destaque-card__image-container,
+            .produto-card__image-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-novidades {
+                height: 50vh;
+            }
+
+            .hero-novidades__title {
+                font-size: 3.6rem;
+            }
+            
+            .hero-novidades__subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .destaques__title,
+            .produtos-novidades__title {
+                font-size: 2.8rem;
+            }
+            
+            .destaque-card__image-container,
+            .produto-card__image-container {
+                height: 250px;
+            }
+            
+            .footer__top {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer__bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer__social {
+                justify-content: center;
+            }
+            
+            .newsletter__form {
+                flex-direction: column;
+            }
+            
+            .newsletter__input {
+                border-right: 1px solid var(--black);
+                border-bottom: none;
+                min-width: auto;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter__submit {
+                padding: 15px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero-novidades__title {
+                font-size: 3rem;
+            }
+            
+            .destaque-card__content,
+            .produto-card__content {
+                padding: 0 15px 15px;
+            }
+            
+            .destaque-card__title,
+            .produto-card__title {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Classe utilitária para esconder elementos em mobile */
+        .mobile-hidden {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-hidden {
+                display: none;
+            }
+        }
+
+        /* Melhorias para toque em dispositivos móveis */
+        @media (hover: none) and (pointer: coarse) {
+            .destaque-card:hover,
+            .produto-card:hover {
+                transform: none;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            }
+            
+            .destaque-card:hover .destaque-card__image,
+            .produto-card:hover .produto-card__image {
+                transform: none;
+            }
+            
+            .destaque-card__link:hover {
+                color: var(--black);
+            }
+            
+            .destaque-card__link:hover i {
+                transform: none;
+            }
+            
+            .newsletter__submit:hover {
+                background-color: var(--black);
+                color: var(--white);
+            }
+            
+            .header__nav-link:hover:after {
+                width: 0;
+            }
+        }
+
+        /* Melhorias de acessibilidade para foco */
+        .destaques__tab:focus,
+        .destaque-card__link:focus,
+        .newsletter__input:focus,
+        .newsletter__submit:focus {
+            outline: 2px solid var(--black);
+            outline-offset: 2px;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* UTILITIES */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">KARPE</div>
+                
+                <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="nav" aria-label="Navegação principal">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="Novidades.html" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Roupas.html" class="header__nav-link">Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="SkinCare.html" class="header__nav-link">Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <!-- Ícone de Login -->
+                    <div class="header__action">
+                        <a href="LoginUsuariosKARP.html" aria-label="Login" id="loginIcon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Ícone do Carrinho -->
+                    <div class="header__action">
+                        <a href="carrinho.html" aria-label="Carrinho de compras">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24">
+                                <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
+                            </svg>
+                            <span class="header__action-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO NOVIDADES -->
+    <section class="hero-novidades">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Novidades KARPE" class="hero-novidades__image">
+        <div class="container">
+            <div class="hero-novidades__content">
+                <h1 class="hero-novidades__title">NOVIDADES</h1>
+                <p class="hero-novidades__subtitle">Descubra os últimos lançamentos e tendências da KARPE</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTAQUES -->
+    <section class="destaques section">
+        <div class="container">
+            <div class="destaques__header">
+                <h2 class="destaques__title">Destaques</h2>
+                <div class="destaques__tabs">
+                    <div class="destaques__tab destaques__tab--active">Todos</div>
+                    <div class="destaques__tab">Lançamentos</div>
+                    <div class="destaques__tab">Tendências</div>
+                    <div class="destaques__tab">Inspiração</div>
+                </div>
+            </div>
+            <div class="destaques__grid">
+                <!-- Destaque 1 -->
+                <div class="destaque-card">
+                    <div class="destaque-card__image-container">
+                        <span class="destaque-card__badge">Novo</span>
+                        <img src="https://i.pinimg.com/736x/62/05/fe/6205fe8f34cd3d615d28138ea82b2f00.jpg" alt="Coleção Outono/Inverno 2025" class="destaque-card__image">
+                    </div>
+                    <div class="destaque-card__content">
+                        <p class="destaque-card__date">15 JUL 2025</p>
+                        <h3 class="destaque-card__title">Coleção Outono/Inverno 2025</h3>
+                        <p class="destaque-card__excerpt">Conheça as peças essenciais para a estação mais fria do ano, com materiais premium e design atemporal.</p>
+                        <a href="#" class="destaque-card__link">Ver mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Destaque 2 -->
+                <div class="destaque-card">
+                    <div class="destaque-card__image-container">
+                        <img src="https://i.pinimg.com/736x/ab/96/88/ab968883bb1863252e175a97c739cb6f.jpg" alt="Guia de Estilo Urbano" class="destaque-card__image">
+                    </div>
+                    <div class="destaque-card__content">
+                        <p class="destaque-card__date">10 JUL 2025</p>
+                        <h3 class="destaque-card__title">Guia de Estilo Urbano</h3>
+                        <p class="destaque-card__excerpt">Como combinar peças básicas para criar looks sofisticados no dia a dia.</p>
+                        <a href="#" class="destaque-card__link">Ver mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Destaque 3 -->
+                <div class="destaque-card">
+                    <div class="destaque-card__image-container">
+                        <span class="destaque-card__badge">Exclusivo</span>
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Entrevista com o Designer" class="destaque-card__image">
+                    </div>
+                    <div class="destaque-card__content">
+                        <p class="destaque-card__date">5 JUL 2025</p>
+                        <h3 class="destaque-card__title">Entrevista com o Designer</h3>
+                        <p class="destaque-card__excerpt">Conheça o processo criativo por trás das novas peças da KARPE em uma conversa exclusiva.</p>
+                        <a href="#" class="destaque-card__link">Ver mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Destaque 4 -->
+                <div class="destaque-card">
+                    <div class="destaque-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Sustentabilidade na Moda" class="destaque-card__image">
+                    </div>
+                    <div class="destaque-card__content">
+                        <p class="destaque-card__date">28 JUN 2025</p>
+                        <h3 class="destaque-card__title">Sustentabilidade na Moda</h3>
+                        <p class="destaque-card__excerpt">Como a KARPE está reduzindo seu impacto ambiental com novas práticas e materiais.</p>
+                        <a href="#" class="destaque-card__link">Ver mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Destaque 5 -->
+                <div class="destaque-card">
+                    <div class="destaque-card__image-container">
+                        <span class="destaque-card__badge">Dica</span>
+                        <img src="https://i.pinimg.com/1200x/4e/d8/e5/4ed8e5fab63cede8b4ba76600c44c9fc.jpg" alt="" class="destaque-card__image">
+                    </div>
+                    <div class="destaque-card__content">
+                        <p class="destaque-card__date">20 JUN 2025</p>
+                        <h3 class="destaque-card__title">Como Cuidar das Suas Peças</h3>
+                        <p class="destaque-card__excerpt">Dicas essenciais para manter suas roupas e acessórios KARPE como novos por mais tempo.</p>
+                        <a href="#" class="destaque-card__link">Ver mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Destaque 6 -->
+                <div class="destaque-card">
+                    <div class="destaque-card__image-container">
+                        <img src="https://i.pinimg.com/1200x/af/a5/2f/afa52f4ce1f97f99a5875699adf56827.jpg" alt="Evento de Lançamento" class="destaque-card__image">
+                    </div>
+                    <div class="destaque-card__content">
+                        <p class="destaque-card__date">15 JUN 2025</p>
+                        <h3 class="destaque-card__title">Evento de Lançamento</h3>
+                        <p class="destaque-card__excerpt">Participe do nosso evento exclusivo de lançamento da nova coleção com descontos especiais.</p>
+                        <a href="#" class="destaque-card__link">Ver mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS NOVIDADES -->
+    <section class="produtos-novidades section">
+        <div class="container">
+            <div class="produtos-novidades__header">
+                <h2 class="produtos-novidades__title">Produtos em Destaque</h2>
+            </div>
+            <div class="produtos-novidades__grid">
+                <!-- Produto 1 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Novo</span>
+                        <img src="https://i.pinimg.com/1200x/4e/d8/e5/4ed8e5fab63cede8b4ba76600c44c9fc.jpg" alt="Camiseta Premium" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product="1">Visualização Rápida</button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Camiseta Premium</h3>
+                        <p class="produto-card__price">R$ 89,90</p>
+                        <button class="produto-card__quickview mobile-visible" data-product="1" style="margin-top: 10px; width: 100%; padding: 10px; background: var(--black); color: var(--white); border: none; border-radius: 4px; cursor: pointer;">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <img src="https://i.pinimg.com/1200x/e8/1c/f9/e81cf9e5ee0ca87bba96766be001ea94.jpg" alt="Calça Jeans Slim" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product="2">Visualização Rápida</button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Calça Jeans Slim</h3>
+                        <p class="produto-card__price">R$ 159,90</p>
+                        <button class="produto-card__quickview mobile-visible" data-product="2" style="margin-top: 10px; width: 100%; padding: 10px; background: var(--black); color: var(--white); border: none; border-radius: 4px; cursor: pointer;">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Lançamento</span>
+                        <img src="https://i.pinimg.com/736x/80/33/a4/8033a49a1af88a4e4b3e22abd2795173.jpg" alt="Tênis Urban" class="produto-card__image">
+                        <button class="produto-card__quickview" data-product="3">Visualização Rápida</button>
+                    </div>
+                    <div class="produto-card__content">
+                        <h3 class="produto-card__title">Tênis Urban</h3>
+                        <p class="produto-card__price">R$ 229,90</p>
+                        <button class="produto-card__quickview mobile-visible" data-product="3" style="margin-top: 10px; width: 100%; padding: 10px; background: var(--black); color: var(--white); border: none; border-radius: 4px; cursor: pointer;">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter section">
+        <div class="container">
+            <div class="newsletter__inner">
+                <div class="newsletter__content">
+                    <h2 class="newsletter__title">Fique por Dentro</h2>
+                    <p>Receba as novidades, lançamentos exclusivos e ofertas especiais da KARPE diretamente no seu email.</p>
+                </div>
+                <form class="newsletter__form">
+                    <input type="email" class="newsletter__input" placeholder="Seu melhor email" required>
+                    <button type="submit" class="newsletter__submit">Inscrever</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__col">
+                    <h4 class="footer__title">KARPE</h4>
+                    <p>Moda com atitude. Design com propósito.</p>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Loja</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="Novidades.html">Novidades</a></li>
+                        <li class="footer__link"><a href="Roupas.html">Roupas</a></li>
+                        <li class="footer__link"><a href="Calçados.html">Calçados</a></li>
+                        <li class="footer__link"><a href="SkinCare.html">Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Informações</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="index.html">Sobre nós</a></li>
+                        <li class="footer__link"><a href="#">Trocas e devoluções</a></li>
+                        <li class="footer__link"><a href="#">Entregas</a></li>
+                        <li class="footer__link"><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Contato</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="#">karpe.companyy@gmail.com</a></li>
+                        <li class="footer__link"><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                        <li class="footer__link"><a href="#">Pirapora-MG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="footer__social">
+                    <a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+        <script src="backend/Back-end arquivos/noviadades.js" defer></script>
+</body>
+</html>

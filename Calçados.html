@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calçados | KARPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE STYLES - MOBILE FIRST */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --transition: all 0.3s ease;
+            --spacing: 40px;
+            --spacing-md: 60px;
+            --spacing-lg: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: var(--spacing) 0;
+        }
+
+        /* HEADER - MOBILE FIRST */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 12px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+            backdrop-filter: blur(10px);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 1001;
+            flex-shrink: 0;
+        }
+
+        /* Menu Hamburger - Mobile First */
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--black);
+            border-radius: 3px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .header__nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: var(--white);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .header__nav.active {
+            right: 0;
+        }
+
+        .header__nav-list {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 25px;
+            text-align: center;
+        }
+
+        .header__nav-item {
+            margin: 0;
+        }
+
+        .header__nav-link {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            text-decoration: none;
+            color: var(--black);
+            padding: 8px 0;
+            display: block;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header__action {
+            font-size: 1.6rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .header__action:hover {
+            transform: scale(1.1);
+        }
+
+        .header__action a {
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--black);
+        }
+
+        .header__action-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: var(--black);
+            color: var(--white);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .fa-user-check {
+            color: #10B981 !important;
+        }
+
+        /* HERO CALÇADOS - MOBILE */
+        .hero-calcados {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero-calcados__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-calcados__content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-calcados__title {
+            font-size: 3.2rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-calcados__subtitle {
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        /* CATEGORIAS - MOBILE */
+        .categorias {
+            padding: var(--spacing) 0;
+        }
+
+        .categorias__title {
+            font-size: 2.4rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .categorias__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .categoria-card {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .categoria-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .categoria-card:hover .categoria-card__image {
+            transform: scale(1.05);
+        }
+
+        .categoria-card__content {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .categoria-card__title {
+            font-size: 1.6rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        /* DESTAQUE TÊNIS - MOBILE */
+        .destaque-tenis {
+            padding: var(--spacing) 0;
+            background-color: var(--white);
+        }
+
+        .destaque-tenis__content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .destaque-tenis__image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .destaque-tenis__info {
+            padding: 0;
+        }
+
+        .destaque-tenis__title {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .destaque-tenis__description {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: var(--gray-5);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .btn--black {
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .btn--black:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        /* PRODUTOS - MOBILE */
+        .produtos {
+            padding: var(--spacing) 0;
+            background-color: var(--gray-1);
+        }
+
+        .produtos__header {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .produtos__title {
+            font-size: 2.4rem;
+            font-weight: 500;
+        }
+
+        .produtos__filters {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .produtos__filter {
+            font-size: 1.3rem;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            padding: 8px 0;
+            color: var(--gray-5);
+            transition: var(--transition);
+        }
+
+        .produtos__filter.active {
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .produtos__filter:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--black);
+            transition: var(--transition);
+        }
+
+        .produtos__filter.active:after,
+        .produtos__filter:active:after {
+            width: 100%;
+        }
+
+        .produtos__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .produto-card {
+            position: relative;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .produto-card__badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: var(--black);
+            color: var(--white);
+            padding: 4px 8px;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            z-index: 2;
+            border-radius: 4px;
+        }
+
+        .produto-card__image-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+            height: 200px;
+        }
+
+        .produto-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .produto-card:hover .produto-card__image {
+            transform: scale(1.03);
+        }
+
+        .produto-card__quickview {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--black);
+            color: var(--white);
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+            transform: translateY(100%);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+        }
+
+        .produto-card:hover .produto-card__quickview {
+            transform: translateY(0);
+        }
+
+        .produto-card__info {
+            padding: 0 15px 15px;
+        }
+
+        .produto-card__title {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .produto-card__price {
+            font-size: 1.3rem;
+            color: var(--gray-5);
+            font-weight: 500;
+        }
+
+        /* FOOTER - MOBILE */
+        .footer {
+            padding: 50px 0 30px;
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer__col {
+            text-align: center;
+        }
+
+        .footer__title {
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .footer__links {
+            list-style: none;
+        }
+
+        .footer__link {
+            margin-bottom: 10px;
+        }
+
+        .footer__link a {
+            font-size: 1.3rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer__link a:active {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-6);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .footer__copyright {
+            font-size: 1.1rem;
+            color: var(--gray-4);
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer__social-link {
+            font-size: 1.6rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+            text-decoration: none;
+            padding: 5px;
+        }
+
+        .footer__social-link:active {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE STYLES - TABLET */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .section {
+                padding: var(--spacing-md) 0;
+            }
+
+            .header {
+                padding: 15px 0;
+            }
+
+            .header__logo {
+                font-size: 2rem;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .header__nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                display: flex;
+            }
+
+            .header__nav-list {
+                flex-direction: row;
+                gap: 25px;
+            }
+
+            .header__nav-link {
+                font-size: 1.3rem;
+                padding: 0;
+            }
+
+            .header__actions {
+                gap: 20px;
+            }
+
+            .hero-calcados {
+                min-height: 60vh;
+                margin-top: 70px;
+            }
+
+            .hero-calcados__content {
+                text-align: left;
+                max-width: 60%;
+            }
+
+            .hero-calcados__title {
+                font-size: 4.8rem;
+            }
+
+            .categorias__title {
+                font-size: 3rem;
+            }
+
+            .categorias__grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 25px;
+            }
+
+            .categoria-card {
+                height: 250px;
+            }
+
+            .destaque-tenis__content {
+                flex-direction: row;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .destaque-tenis__image {
+                height: 400px;
+            }
+
+            .destaque-tenis__info {
+                padding: 20px 0;
+            }
+
+            .destaque-tenis__title {
+                font-size: 3rem;
+            }
+
+            .produtos__header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+
+            .produtos__filters {
+                overflow-x: visible;
+                gap: 25px;
+            }
+
+            .produtos__grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
+            }
+
+            .produto-card__image-container {
+                height: 250px;
+            }
+
+            .footer__top {
+                grid-template-columns: repeat(2, 1fr);
+                text-align: left;
+            }
+
+            .footer__col {
+                text-align: left;
+            }
+        }
+
+        /* RESPONSIVE STYLES - DESKTOP */
+        @media (min-width: 992px) {
+            .section {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .hero-calcados {
+                min-height: 70vh;
+                margin-top: 80px;
+            }
+
+            .hero-calcados__title {
+                font-size: 6.4rem;
+            }
+
+            .categorias__title {
+                font-size: 3.6rem;
+                margin-bottom: 5rem;
+            }
+
+            .categorias__grid {
+                gap: 30px;
+            }
+
+            .categoria-card {
+                height: 300px;
+            }
+
+            .destaque-tenis__content {
+                gap: 60px;
+            }
+
+            .destaque-tenis__image {
+                height: 500px;
+            }
+
+            .destaque-tenis__title {
+                font-size: 3.6rem;
+            }
+
+            .destaque-tenis__description {
+                font-size: 1.6rem;
+            }
+
+            .produtos__grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+
+            .produto-card__image-container {
+                height: 300px;
+            }
+
+            .footer__top {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .footer__bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        /* RESPONSIVE STYLES - LARGE DESKTOP */
+        @media (min-width: 1200px) {
+            .categoria-card {
+                height: 350px;
+            }
+
+            .produto-card__image-container {
+                height: 350px;
+            }
+        }
+
+        /* UTILITIES */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Touch improvements */
+        @media (hover: hover) {
+            .categoria-card:hover .categoria-card__image {
+                transform: scale(1.05);
+            }
+            
+            .produto-card:hover .produto-card__image {
+                transform: scale(1.03);
+            }
+            
+            .produto-card:hover .produto-card__quickview {
+                transform: translateY(0);
+            }
+            
+            .btn--black:hover {
+                opacity: 0.9;
+                transform: translateY(-2px);
+            }
+            
+            .footer__link a:hover,
+            .footer__social-link:hover {
+                color: var(--white);
+            }
+            
+            .produtos__filter:hover:after {
+                width: 100%;
+            }
+        }
+
+        /* Scrollbar styling for filters */
+        .produtos__filters::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .produtos__filters::-webkit-scrollbar-track {
+            background: var(--gray-2);
+            border-radius: 2px;
+        }
+
+        .produtos__filters::-webkit-scrollbar-thumb {
+            background: var(--gray-4);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">KARPE</div>
+                
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="mainNav" aria-label="Navegação principal">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="Novidades.html" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Roupas.html" class="header__nav-link">Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="SkinCare.html" class="header__nav-link">Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <!-- Ícone de Login -->
+                    <div class="header__action">
+                        <a href="LoginUsuariosKARP.html" aria-label="Login" id="loginIcon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                    <!-- Ícone do Carrinho -->
+                    <div class="header__action">
+                        <a href="carrinho.html" aria-label="Carrinho de compras">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
+                            </svg>
+                            <span class="header__action-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO CALÇADOS -->
+    <section class="hero-calcados">
+        <img src="https://images.unsplash.com/photo-1463100099107-aa0980c362e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+             alt="Coleção de Calçados KARPE" 
+             class="hero-calcados__image"
+             loading="eager">
+        <div class="container">
+            <div class="hero-calcados__content">
+                <h1 class="hero-calcados__title">COLEÇÃO CALÇADOS</h1>
+                <p class="hero-calcados__subtitle">Conforto e estilo em cada passo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias section">
+        <div class="container">
+            <h2 class="categorias__title">Explore por Categoria</h2>
+            <div class="categorias__grid">
+                <div class="categoria-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Tênis KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Tênis</h3>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                         alt="Sapatos Sociais KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Sapatos Sociais</h3>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=698&q=80" 
+                         alt="Sneakers KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Sneakers</h3>
+                    </div>
+                </div>
+                <div class="categoria-card">
+                    <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" 
+                         alt="Botas KARPE" 
+                         class="categoria-card__image"
+                         loading="lazy">
+                    <div class="categoria-card__content">
+                        <h3 class="categoria-card__title">Botas</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTAQUE TÊNIS -->
+    <section class="destaque-tenis section">
+        <div class="container">
+            <div class="destaque-tenis__content">
+                <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" 
+                     alt="Tênis Premium KARPE" 
+                     class="destaque-tenis__image"
+                     loading="lazy">
+                <div class="destaque-tenis__info">
+                    <h2 class="destaque-tenis__title">Tênis Premium KARPE</h2>
+                    <p class="destaque-tenis__description">
+                        Nossa linha de tênis premium combina tecnologia de amortecimento com design minimalista. 
+                        Fabricados com materiais sustentáveis e duráveis, oferecem conforto inigualável para 
+                        o uso diário ou atividades esportivas.
+                    </p>
+                    <a href="#" class="btn btn--black">Conheça a Tecnologia</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="produtos section">
+        <div class="container">
+            <div class="produtos__header">
+                <h2 class="produtos__title">Todos os Calçados</h2>
+                <div class="produtos__filters">
+                    <div class="produtos__filter active">Todos</div>
+                    <div class="produtos__filter">Novidades</div>
+                    <div class="produtos__filter">Mais Vendidos</div>
+                    <div class="produtos__filter">Lançamentos</div>
+                </div>
+            </div>
+            <div class="produtos__grid">
+                <!-- Produto 1 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Novidade</span>
+                        <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" 
+                             alt="Tênis Urban KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="7">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="produto-card__info">
+                        <h3 class="produto-card__title">Tênis Urban</h3>
+                        <p class="produto-card__price">R$ 399,90</p>
+                    </div>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Mais Vendido</span>
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=812&q=80" 
+                             alt="Sneaker Minimal KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="8">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="produto-card__info">
+                        <h3 class="produto-card__title">Sneaker Minimal</h3>
+                        <p class="produto-card__price">R$ 349,90</p>
+                    </div>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Sapato Social KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="9">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="produto-card__info">
+                        <h3 class="produto-card__title">Sapato Social</h3>
+                        <p class="produto-card__price">R$ 499,90</p>
+                    </div>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" 
+                             alt="Bota Chelsea KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="10">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="produto-card__info">
+                        <h3 class="produto-card__title">Bota Chelsea</h3>
+                        <p class="produto-card__price">R$ 599,90</p>
+                    </div>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <span class="produto-card__badge">Novidade</span>
+                        <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=698&q=80" 
+                             alt="Sneaker Runner KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="11">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="produto-card__info">
+                        <h3 class="produto-card__title">Sneaker Runner</h3>
+                        <p class="produto-card__price">R$ 459,90</p>
+                    </div>
+                </div>
+
+                <!-- Produto 6 -->
+                <div class="produto-card">
+                    <div class="produto-card__image-container">
+                        <img src="https://images.unsplash.com/photo-1549298916-f52d724204b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=812&q=80" 
+                             alt="Tênis Casual KARPE" 
+                             class="produto-card__image"
+                             loading="lazy">
+                        <button class="produto-card__quickview" data-product-id="12">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="produto-card__info">
+                        <h3 class="produto-card__title">Tênis Casual</h3>
+                        <p class="produto-card__price">R$ 379,90</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__col">
+                    <h4 class="footer__title">KARPE</h4>
+                    <p style="color: var(--gray-4); font-size: 1.3rem; line-height: 1.5;">Moda com atitude. Design com propósito.</p>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Loja</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="Novidades.html">Novidades</a></li>
+                        <li class="footer__link"><a href="Roupas.html">Roupas</a></li>
+                        <li class="footer__link"><a href="Calçados.html">Calçados</a></li>
+                        <li class="footer__link"><a href="SkinCare.html">Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Informações</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="index.html">Sobre nós</a></li>
+                        <li class="footer__link"><a href="#">Trocas e devoluções</a></li>
+                        <li class="footer__link"><a href="#">Entregas</a></li>
+                        <li class="footer__link"><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Contato</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="mailto:karpe.companyy@gmail.com">karpe.companyy@gmail.com</a></li>
+                        <li class="footer__link"><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                        <li class="footer__link"><a href="#">Pirapora-MG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="backend/Back-end arquivos/calçados.js" defer></script>
+</body>
+</html>

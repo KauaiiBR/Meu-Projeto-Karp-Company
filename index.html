@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARPE | Moda com Atitude</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & BASE STYLES */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-1: #F5F5F5;
+            --gray-2: #E5E5E5;
+            --gray-3: #CCCCCC;
+            --gray-4: #999999;
+            --gray-5: #666666;
+            --gray-6: #333333;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --spacing: 120px;
+            --spacing-md: 80px;
+            --spacing-sm: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+            /* Corrige problema de scroll em iOS */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            font-family: 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            /* Corrige problema de scroll em iOS */
+            position: relative;
+            height: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section {
+            padding: var(--spacing) 0;
+            position: relative;
+        }
+
+        .section--no-padding {
+            padding: 0;
+        }
+
+        .section--full-height {
+            min-height: 100vh;
+        }
+
+        /* HEADER COM BORDA CINZA */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-3);
+            background-color: var(--white);
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header__logo {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            z-index: 1001;
+        }
+
+        .header__nav {
+            display: flex;
+        }
+
+        .header__nav-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .header__nav-item {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .header__nav-link {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .header__nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            transition: var(--transition);
+        }
+
+        .header__nav-link:hover:after {
+            width: 100%;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action {
+            margin-left: 20px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .header__action:hover {
+            transform: scale(1.1);
+        }
+
+        .header__action a {
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header__action-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: var(--black);
+            color: var(--white);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .fa-user-check {
+            color: #10B981 !important;
+        }
+
+        /* Menu Hamburger (Mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--black);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* HERO COM VÍDEO DE FUNDO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero__video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+            max-width: 60%;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            padding: 0 20px;
+        }
+
+        .hero__title {
+            font-size: 12rem;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 3rem;
+            letter-spacing: -0.05em;
+        }
+
+        .hero__subtitle {
+            font-size: 2.4rem;
+            font-weight: 400;
+            margin-bottom: 5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero__description {
+            font-size: 1.6rem;
+            margin-bottom: 3rem;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 9.6rem;
+            letter-spacing: -0.05em;
+        }
+
+        h2 {
+            font-size: 7.2rem;
+        }
+
+        h3 {
+            font-size: 4.8rem;
+        }
+
+        h4 {
+            font-size: 3.6rem;
+        }
+
+        h5 {
+            font-size: 2.4rem;
+        }
+
+        h6 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* COMPONENTS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.8rem 4rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid var(--black);
+            background-color: var(--white);
+            color: var(--black);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .btn--black {
+            background-color: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .btn--black:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        /* COLLECTIONS */
+        .collections {
+            padding: 150px 0;
+        }
+
+        .collections__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+        }
+
+        .collections__title {
+            font-size: 4.8rem;
+            font-weight: 400;
+            max-width: 50%;
+            margin-bottom: 20px;
+        }
+
+        .collections__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .collection-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .collection-card__image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .collection-card:hover .collection-card__image {
+            transform: scale(1.03);
+        }
+
+        .collection-card__content {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+        }
+
+        .collection-card__title {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .collection-card__link {
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+        }
+
+        .collection-card__link i {
+            margin-left: 10px;
+            transition: var(--transition);
+        }
+
+        .collection-card__link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* ABOUT */
+        .about {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            min-height: 100vh;
+        }
+
+        .about__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about__content {
+            padding: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about__title {
+            font-size: 4.8rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .about__text {
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            max-width: 80%;
+        }
+
+        /* NEWSLETTER */
+        .newsletter {
+            padding: 120px 0;
+            background-color: var(--gray-1);
+        }
+
+        .newsletter__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .newsletter__content {
+            max-width: 40%;
+            margin-bottom: 30px;
+        }
+
+        .newsletter__title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .newsletter__form {
+            display: flex;
+            width: 50%;
+            flex-wrap: wrap;
+        }
+
+        .newsletter__input {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid var(--black);
+            border-right: none;
+            font-size: 1.4rem;
+            background-color: transparent;
+            min-width: 250px;
+        }
+
+        .newsletter__submit {
+            padding: 0 40px;
+            border: 1px solid var(--black);
+            background-color: var(--black);
+            color: var(--white);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter__submit:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 100px 0 50px;
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer__title {
+            font-size: 1.4rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .footer__links {
+            list-style: none;
+        }
+
+        .footer__link {
+            margin-bottom: 15px;
+        }
+
+        .footer__link a {
+            font-size: 1.4rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+        }
+
+        .footer__link a:hover {
+            color: var(--white);
+        }
+
+        .footer__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 50px;
+            border-top: 1px solid var(--gray-6);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer__copyright {
+            font-size: 1.2rem;
+            color: var(--gray-4);
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer__social-link {
+            font-size: 1.6rem;
+            color: var(--gray-4);
+            transition: var(--transition);
+        }
+
+        .footer__social-link:hover {
+            color: var(--white);
+        }
+
+        /* UTILITY CLASSES */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .letter-spacing {
+            letter-spacing: 0.1em;
+        }
+
+        .mb-0 {
+            margin-bottom: 0;
+        }
+
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        .mb-50 {
+            margin-bottom: 50px;
+        }
+
+        .mb-60 {
+            margin-bottom: 60px;
+        }
+
+        .mb-70 {
+            margin-bottom: 70px;
+        }
+
+        .mb-80 {
+            margin-bottom: 80px;
+        }
+
+        .mb-90 {
+            margin-bottom: 90px;
+        }
+
+        .mb-100 {
+            margin-bottom: 100px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE STYLES */
+        @media (max-width: 1600px) {
+            .container {
+                max-width: 1400px;
+            }
+        }
+
+        @media (max-width: 1440px) {
+            .container {
+                max-width: 1200px;
+            }
+
+            h1 {
+                font-size: 8rem;
+            }
+
+            h2 {
+                font-size: 6rem;
+            }
+
+            .hero__title {
+                font-size: 10rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+                padding: 0 30px;
+            }
+
+            .section {
+                padding: 100px 0;
+            }
+
+            .collections__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about__image {
+                height: 500px;
+            }
+
+            .about__content {
+                padding: 80px;
+            }
+
+            .footer__top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                max-width: 800px;
+                padding: 0 25px;
+            }
+
+            h1 {
+                font-size: 6.4rem;
+            }
+
+            h2 {
+                font-size: 4.8rem;
+            }
+
+            .hero__title {
+                font-size: 8rem;
+            }
+
+            .hero__content {
+                max-width: 80%;
+            }
+
+            .newsletter__inner {
+                flex-direction: column;
+            }
+
+            .newsletter__content {
+                max-width: 100%;
+                margin-bottom: 40px;
+            }
+
+            .newsletter__form {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .header__nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            
+            .header__nav.active {
+                right: 0;
+            }
+            
+            .header__nav-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .header__nav-item {
+                margin-left: 0;
+            }
+            
+            .header__actions {
+                margin-left: auto;
+            }
+
+            .container {
+                max-width: 600px;
+                padding: 0 20px;
+            }
+
+            .hero {
+                height: 80vh;
+                margin-top: 60px;
+            }
+
+            .hero__title {
+                font-size: 6rem;
+            }
+
+            .hero__subtitle {
+                font-size: 1.8rem;
+            }
+
+            .hero__description {
+                font-size: 1.4rem;
+            }
+
+            .collections {
+                padding: 80px 0;
+            }
+
+            .collections__header {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 50px;
+            }
+
+            .collections__title {
+                max-width: 100%;
+                margin-bottom: 30px;
+                font-size: 3.6rem;
+            }
+
+            .about__content {
+                padding: 60px;
+            }
+
+            .about__title {
+                font-size: 3.6rem;
+            }
+
+            .about__text {
+                max-width: 100%;
+                font-size: 1.4rem;
+            }
+
+            .collection-card__content {
+                bottom: 20px;
+                left: 20px;
+            }
+
+            .collection-card__title {
+                font-size: 2rem;
+            }
+
+            .newsletter {
+                padding: 80px 0;
+            }
+
+            .newsletter__title {
+                font-size: 2.8rem;
+            }
+
+            .footer {
+                padding: 60px 0 30px;
+            }
+
+            .footer__top {
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                max-width: 100%;
+                padding: 0 15px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            h1 {
+                font-size: 4.8rem;
+            }
+
+            h2 {
+                font-size: 3.6rem;
+            }
+
+            .hero {
+                height: 70vh;
+            }
+
+            .hero__title {
+                font-size: 4.8rem;
+            }
+
+            .hero__content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .collections__grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .collection-card__image {
+                height: 400px;
+            }
+
+            .about__content {
+                padding: 40px;
+            }
+
+            .about__text {
+                max-width: 100%;
+            }
+
+            .footer__top {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter__form {
+                flex-direction: column;
+            }
+
+            .newsletter__input {
+                border-right: 1px solid var(--black);
+                border-bottom: none;
+                min-width: auto;
+                margin-bottom: 10px;
+            }
+
+            .newsletter__submit {
+                padding: 15px;
+                width: 100%;
+            }
+
+            .footer__bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer__social {
+                justify-content: center;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero__title {
+                font-size: 4rem;
+            }
+
+            .hero__subtitle {
+                font-size: 1.6rem;
+            }
+
+            .btn {
+                padding: 1.5rem 3rem;
+                font-size: 1.2rem;
+            }
+
+            .about__content {
+                padding: 30px 20px;
+            }
+
+            .collection-card__image {
+                height: 350px;
+            }
+
+            .collections__title {
+                font-size: 3rem;
+            }
+
+            .about__title {
+                font-size: 3rem;
+            }
+        }
+
+        /* Classe utilitária para esconder elementos em mobile */
+        .mobile-hidden {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-hidden {
+                display: none;
+            }
+        }
+
+        /* Melhorias para toque em dispositivos móveis */
+        @media (hover: none) and (pointer: coarse) {
+            .collection-card:hover .collection-card__image {
+                transform: none;
+            }
+            
+            .btn:hover {
+                background-color: var(--white);
+                color: var(--black);
+            }
+            
+            .btn--black:hover {
+                background-color: var(--black);
+                color: var(--white);
+            }
+            
+            .header__nav-link:hover:after {
+                width: 0;
+            }
+        }
+
+        /* Melhorias de acessibilidade para foco */
+        .btn:focus,
+        .header__nav-link:focus,
+        .newsletter__input:focus,
+        .newsletter__submit:focus {
+            outline: 2px solid var(--black);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER COM BORDA CINZA -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">KARPE</div>
+                
+                <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="header__nav" id="nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="Novidades.html" class="header__nav-link">Novidades</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a class='header__nav-link' href='Roupas.html'>Roupas</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="Calçados.html" class="header__nav-link">Calçados</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="SkinCare.html" class="header__nav-link">Skincare</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__actions">
+                    <!-- Ícone de Login -->
+                    <div class="header__action">
+                        <a href="LoginUsuariosKARP.html" aria-label="Login" id="loginIcon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                    <div class="header__action mobile-hidden">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <!-- Ícone do Carrinho -->
+                    <div class="header__action">
+                        <a href="carrinho.html" aria-label="Carrinho de compras">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24">
+                                <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
+                            </svg>
+                            <span class="header__action-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO COM VÍDEO DE FUNDO -->
+    <section class="hero section--full-height">
+        <!-- Vídeo de fundo - substitua pelo seu vídeo -->
+        <video autoplay muted loop class="hero__video-bg">
+            <source src="Video KARP.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+        
+        <div class="container">
+            <div class="hero__content">
+                <h1 class="hero__title">ELEGÂNCIA</h1>
+                <h2 class="hero__subtitle">DESCOMPLICADA</h2>
+                <p class="hero__description">Coleção Outono/Inverno 2025</p>
+                <a href="#" class="btn btn--black">EXPLORAR</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section class="collections section">
+        <div class="container">
+            <div class="collections__header">
+                <h2 class="collections__title">Nossas Coleções</h2>
+                <a href="#" class="btn">Ver tudo</a>
+            </div>
+            <div class="collections__grid">
+                <div class="collection-card">
+                    <img src="https://i.pinimg.com/736x/2c/f3/45/2cf345c33502c764d0a39389f18fce93.jpg" alt="Coleção 1" class="collection-card__image">
+                    <div class="collection-card__content">
+                        <h3 class="collection-card__title">Essenciais</h3>
+                        <a href="https://i.pinimg.com/1200x/86/99/c9/8699c99ed7af8ff818cd2c266f2b7301.jpg" class="collection-card__link">
+                            Explorar
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="https://i.pinimg.com/1200x/86/99/c9/8699c99ed7af8ff818cd2c266f2b7301.jpg" alt="Coleção 2" class="collection-card__image">
+                    <div class="collection-card__content">
+                        <h3 class="collection-card__title">Urban</h3>
+                        <a href="#" class="collection-card__link">
+                            Explorar
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="https://i.pinimg.com/736x/da/15/75/da15752d7e9dacb61fc6ea524fe8a483.jpg" alt="Coleção 3" class="collection-card__image">
+                    <div class="collection-card__content">
+                        <h3 class="collection-card__title">Minimal</h3>
+                        <a href="#" class="collection-card__link">
+                            Explorar
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about section--no-padding">
+        <div class="about__image-container">
+            <img src="Imagem do WhatsApp de 2025-07-13 à(s) 22.42.54_83aeaabd.jpg" alt="Sobre a KARPE" class="about__image">
+        </div>
+        <div class="about__content">
+            <h2 class="about__title">A KARP</h2>
+            <p class="about__text">
+                Fundada em 2025 por Kauã Ribeiro da Paixão, a KARP nasceu da paixão por moda autêntica e atemporal. 
+                Nossa missão é oferecer peças que transcendem tendências passageiras, 
+                focando em qualidade, conforto e design inteligente.
+            </p>
+            <p class="about__text">
+                Cada peça é cuidadosamente selecionada para compor um guarda-roupa 
+                versátil e durável, onde o essencial encontra o extraordinário.
+            </p>
+            <a href="#" class="btn">Nossa história</a>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter section">
+        <div class="container">
+            <div class="newsletter__inner">
+                <div class="newsletter__content">
+                    <h3 class="newsletter__title">Assine nossa newsletter</h3>
+                    <p>Receba novidades, lançamentos e ofertas exclusivas.</p>
+                </div>
+                <form class="newsletter__form">
+                    <input type="email" placeholder="Seu melhor e-mail" class="newsletter__input" required>
+                    <button type="submit" class="newsletter__submit">Assinar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer section">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer__col">
+                    <h4 class="footer__title">KARPE</h4>
+                    <p>Moda com atitude. Design com propósito.</p>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Loja</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="Novidades.html">Novidades</a></li>
+                        <li class="footer__link"><a href='Roupas.html'>Roupas</a></li>
+                        <li class="footer__link"><a href="Calçados.html">Calçados</a></li>
+                        <li class="footer__link"><a href='SkinCare.html'>Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Informações</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="index.html">Sobre nós</a></li>
+                        <li class="footer__link"><a href="#">Trocas e devoluções</a></li>
+                        <li class="footer__link"><a href="#">Entregas</a></li>
+                        <li class="footer__link"><a href="Politica de privacidade.html">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__title">Contato</h4>
+                    <ul class="footer__links">
+                        <li class="footer__link"><a href="mailto:karpe.companyy@gmail.com">karpe.companyy@gmail.com</a></li>
+                        <li class="footer__link"><a href="https://www.instagram.com/karp_company?igsh=NjRvb2NjcHNmbWNx">@Karpe_company</a></li>
+                        <li class="footer__link"><a href="#">Pirapora-MG</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 KARPE. Todos os direitos reservados.</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="backend/Back-end arquivos/index.js" defer></script>
+    
+    
+</body>
+</html>
